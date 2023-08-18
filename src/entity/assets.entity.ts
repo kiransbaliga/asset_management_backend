@@ -7,6 +7,7 @@ import { Status } from "../utils/status.enum";
 import { AssetStatus } from "../utils/assetStatus.enum";
 import Employee from "./employee.entity";
 import SubCategory from "./subCategory.entity";
+import Request from "./request.entity";
 
 
 
@@ -27,7 +28,7 @@ class Asset extends AbstractEntity{
     @JoinColumn()
     subcategory:SubCategory;
 
-    @OneToMany(()=>Request,(request)=>request.assets)
+    @OneToMany(()=>Request,(request)=>request.asset)
     request:Request;
 
   

@@ -19,15 +19,15 @@ class SubCategory extends AbstractEntity{
     @Column()
     name:string;
 
-    @OneToMany(()=>Asset,(asset)=>asset.subCategory)
+    @OneToMany(()=>Asset,(asset)=>asset.subcategory)
     asset:Asset;
 
 
-    @ManyToOne(()=>Category,(category)=>category.subCategory)
+    @ManyToOne(()=>Category,(category)=>category.subcategory)
     @JoinColumn()
     category:Category;
 
-    @OneToMany(()=>RequestItem,(requestitem)=>requestitem.subCategory)
+    @OneToMany(()=>RequestItem,(requestitem)=>requestitem.subcategory)
     requestItem:RequestItem;
 
 

@@ -20,11 +20,11 @@ class Request extends AbstractEntity{
 
 
 
-    @ManyToOne(()=>Employee,(employee)=>employee.Request)
+    @ManyToOne(()=>Employee,(employee)=>employee.request)
     @JoinColumn()
     employee:Employee;
 
-    @ManyToOne(()=>Asset,(asset)=>asset.Request)
+    @ManyToOne(()=>Asset,(asset)=>asset.request)
     @JoinColumn()
     asset:Asset;
 

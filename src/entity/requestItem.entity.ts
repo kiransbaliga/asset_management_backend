@@ -2,6 +2,7 @@ import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToO
 import AbstractEntity from "./abstract-entity";
 import SubCategory from "./subCategory.entity";
 import { RequestStatus } from "../utils/requestStatus.enum";
+import Request from "./request.entity";
 
 
 
