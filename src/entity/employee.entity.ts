@@ -1,10 +1,12 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import Address from "./address.entity";
 import AbstractEntity from "./abstract-entity";
 import { Role } from "../utils/role.enum";
 import Department from "./department.entity";
 import { Status } from "../utils/status.enum";
-// import Department from "./department.entity";
+import Asset from "./assets.entity";
+import Request from "./request.entity";
+
 
 
 @Entity("employees")
@@ -40,6 +42,13 @@ class Employee extends AbstractEntity{
 
     @ManyToOne(()=>Department,(department)=>department.employee,{cascade:true})
     department:Department;
+
+
+    @OneToMany(()=>Asset,(asset)=>asset.employee)
+    asset:Asset;
+
+    @OneToMany(()=>Request,(request)=>request.employee)
+    request:Request;
 
 
     @Column()
