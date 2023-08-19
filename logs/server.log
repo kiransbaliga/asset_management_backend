@@ -3108,3 +3108,358 @@
   level: 'info'
 }
 { message: 'Recieved All Departments', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 11:50:19 GMT+0530 (India Standard Time):/category:POST',
+  level: 'info'
+}
+{ message: 'message:jwt must be provided ', level: 'error' }
+{
+  message: 'Sat Aug 19 2023 11:52:07 GMT+0530 (India Standard Time):/employees:POST',
+  level: 'info'
+}
+{
+  message: 'Sat Aug 19 2023 11:52:27 GMT+0530 (India Standard Time):/department:GET',
+  level: 'info'
+}
+{ message: 'recieved all categories', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 11:52:34 GMT+0530 (India Standard Time):/department:POST',
+  level: 'info'
+}
+{ message: 'message:invalid signature ', level: 'error' }
+{
+  message: 'Sat Aug 19 2023 11:54:11 GMT+0530 (India Standard Time):/department:POST',
+  level: 'info'
+}
+{ message: 'message:invalid signature ', level: 'error' }
+{
+  message: 'Sat Aug 19 2023 11:54:56 GMT+0530 (India Standard Time):/department:POST',
+  level: 'info'
+}
+{ message: 'message:jwt must be provided ', level: 'error' }
+{
+  message: 'Sat Aug 19 2023 11:55:35 GMT+0530 (India Standard Time):/department:POST',
+  level: 'info'
+}
+{ message: 'message:jwt must be provided ', level: 'error' }
+{
+  message: 'Sat Aug 19 2023 11:57:26 GMT+0530 (India Standard Time):/department:POST',
+  level: 'info'
+}
+{ message: 'message:jwt must be provided ', level: 'error' }
+{
+  message: 'Sat Aug 19 2023 12:00:42 GMT+0530 (India Standard Time):/department:POST',
+  level: 'info'
+}
+{ message: 'Created Department with id 1', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:01:00 GMT+0530 (India Standard Time):/employees:POST',
+  level: 'info'
+}
+{ message: 'Created Department with id 2', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:01:15 GMT+0530 (India Standard Time):/employees/login:POST',
+  level: 'info'
+}
+{ message: 'Logged in User Javed', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:01:53 GMT+0530 (India Standard Time):/category:POST',
+  level: 'info'
+}
+{ message: 'Created Department with id 2', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:03:01 GMT+0530 (India Standard Time):/category:GET',
+  level: 'info'
+}
+{ message: 'recieved all departments', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:03:23 GMT+0530 (India Standard Time):/department:GET',
+  level: 'info'
+}
+{ message: 'recieved all departments', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:03:43 GMT+0530 (India Standard Time):/category:GET',
+  level: 'info'
+}
+{ message: 'recieved all departments', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:08:42 GMT+0530 (India Standard Time):/department/2:DELETE',
+  level: 'info'
+}
+{ message: 'message:jwt must be provided ', level: 'error' }
+{
+  message: 'Sat Aug 19 2023 12:09:24 GMT+0530 (India Standard Time):/department/2:DELETE',
+  level: 'info'
+}
+{ message: 'Deleted Department with id 2', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:09:32 GMT+0530 (India Standard Time):/category:GET',
+  level: 'info'
+}
+{ message: 'recieved all departments', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:10:24 GMT+0530 (India Standard Time):/category:POST',
+  level: 'info'
+}
+{ message: 'Created Department with id 3', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:13:23 GMT+0530 (India Standard Time):/categor:POST',
+  level: 'info'
+}
+{
+  message: 'Sat Aug 19 2023 12:13:31 GMT+0530 (India Standard Time):/category:POST',
+  level: 'info'
+}
+{ message: 'Created Department with id 4', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:14:46 GMT+0530 (India Standard Time):/category:POST',
+  level: 'info'
+}
+{ message: 'Created Category with id 1', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:14:54 GMT+0530 (India Standard Time):/category:GET',
+  level: 'info'
+}
+{ message: 'recieved all categories', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:15:25 GMT+0530 (India Standard Time):/category:POST',
+  level: 'info'
+}
+{ message: 'Created Category with id 2', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:16:07 GMT+0530 (India Standard Time):/category/2:GET',
+  level: 'info'
+}
+{ message: 'Recived category with 2', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:16:40 GMT+0530 (India Standard Time):/category:GET',
+  level: 'info'
+}
+{ message: 'recieved all categories', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:17:34 GMT+0530 (India Standard Time):/category/2:POST',
+  level: 'info'
+}
+{
+  message: 'Sat Aug 19 2023 12:17:44 GMT+0530 (India Standard Time):/category/2:PUT',
+  level: 'info'
+}
+{ message: 'message:jwt must be provided ', level: 'error' }
+{
+  message: 'Sat Aug 19 2023 12:18:10 GMT+0530 (India Standard Time):/category/2:PUT',
+  level: 'info'
+}
+{ message: 'Updated categorywith id 2', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:19:12 GMT+0530 (India Standard Time):/category/2:DELETE',
+  level: 'info'
+}
+{ message: 'status :400 message:Validation Errors ', level: 'error' }
+{
+  message: 'Sat Aug 19 2023 12:19:41 GMT+0530 (India Standard Time):/category/2:DELETE',
+  level: 'info'
+}
+{ message: 'status :400 message:Validation Errors ', level: 'error' }
+{
+  message: 'Sat Aug 19 2023 12:19:50 GMT+0530 (India Standard Time):/category:GET',
+  level: 'info'
+}
+{ message: 'recieved all categories', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:20:38 GMT+0530 (India Standard Time):/category/2:DELETE',
+  level: 'info'
+}
+{ message: 'Deleted Category with id 2', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 12:20:42 GMT+0530 (India Standard Time):/category:GET',
+  level: 'info'
+}
+{ message: 'recieved all categories', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 13:10:25 GMT+0530 (India Standard Time):/employees/login:POST',
+  level: 'info'
+}
+{ message: 'Logged in User Javed', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 13:11:48 GMT+0530 (India Standard Time):/category:GET',
+  level: 'info'
+}
+{ message: 'recieved all categories', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 13:12:12 GMT+0530 (India Standard Time):/subcategory:POST',
+  level: 'info'
+}
+{
+  message: 'Sat Aug 19 2023 13:14:05 GMT+0530 (India Standard Time):/subcategory:POST',
+  level: 'info'
+}
+{ message: 'Created Subcategory with id 2', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 13:14:56 GMT+0530 (India Standard Time):/subcategory:GET',
+  level: 'info'
+}
+{ message: 'message:jwt must be provided ', level: 'error' }
+{
+  message: 'Sat Aug 19 2023 13:15:19 GMT+0530 (India Standard Time):/subcategory:GET',
+  level: 'info'
+}
+{ message: 'Received All Subcategories', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 13:15:32 GMT+0530 (India Standard Time):/subcategory:POST',
+  level: 'info'
+}
+{ message: 'Created Subcategory with id 3', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 13:15:40 GMT+0530 (India Standard Time):/category:GET',
+  level: 'info'
+}
+{ message: 'recieved all categories', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 13:16:00 GMT+0530 (India Standard Time):/subcategory:POST',
+  level: 'info'
+}
+{
+  message: 'Sat Aug 19 2023 13:16:06 GMT+0530 (India Standard Time):/subcategory:POST',
+  level: 'info'
+}
+{
+  message: 'Sat Aug 19 2023 13:26:12 GMT+0530 (India Standard Time):/subcategory:GET',
+  level: 'info'
+}
+{ message: 'Received All Subcategories', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 13:32:03 GMT+0530 (India Standard Time):/subcategory/2:PATCH',
+  level: 'info'
+}
+{ message: 'message:jwt must be provided ', level: 'error' }
+{
+  message: 'Sat Aug 19 2023 13:32:32 GMT+0530 (India Standard Time):/subcategory/2:PATCH',
+  level: 'info'
+}
+{ message: 'Updated Subcategory with id 2', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 13:32:45 GMT+0530 (India Standard Time):/subcategory/2:PATCH',
+  level: 'info'
+}
+{ message: 'Updated Subcategory with id 2', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 13:33:42 GMT+0530 (India Standard Time):/subcategory/2:GET',
+  level: 'info'
+}
+{ message: 'message:jwt must be provided ', level: 'error' }
+{
+  message: 'Sat Aug 19 2023 13:34:12 GMT+0530 (India Standard Time):/subcategory/2:GET',
+  level: 'info'
+}
+{ message: 'Received Subcategory with id 2', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 13:34:59 GMT+0530 (India Standard Time):/subcategory/3:DELETE',
+  level: 'info'
+}
+{ message: 'message:jwt must be provided ', level: 'error' }
+{
+  message: 'Sat Aug 19 2023 13:35:12 GMT+0530 (India Standard Time):/subcategory/3:DELETE',
+  level: 'info'
+}
+{ message: 'Deleted Subcategory with id 3', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 13:35:18 GMT+0530 (India Standard Time):/subcategory:GET',
+  level: 'info'
+}
+{ message: 'Received All Subcategories', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 14:22:31 GMT+0530 (India Standard Time):/subcategory:GET',
+  level: 'info'
+}
+{ message: 'message:jwt expired ', level: 'error' }
+{
+  message: 'Sat Aug 19 2023 14:22:36 GMT+0530 (India Standard Time):/employees/login:POST',
+  level: 'info'
+}
+{ message: 'Logged in User Javed', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 14:22:48 GMT+0530 (India Standard Time):/subcategory:GET',
+  level: 'info'
+}
+{ message: 'Received All Subcategories', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 14:23:03 GMT+0530 (India Standard Time):/subcategory/2:PATCH',
+  level: 'info'
+}
+{ message: 'message:jwt expired ', level: 'error' }
+{
+  message: 'Sat Aug 19 2023 14:23:09 GMT+0530 (India Standard Time):/subcategory/2:PATCH',
+  level: 'info'
+}
+{ message: 'Updated Subcategory with id 2', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 14:25:20 GMT+0530 (India Standard Time):/assets:POST',
+  level: 'info'
+}
+{
+  message: 'Sat Aug 19 2023 14:29:01 GMT+0530 (India Standard Time):/assets:POST',
+  level: 'info'
+}
+{
+  message: 'Sat Aug 19 2023 14:29:33 GMT+0530 (India Standard Time):/employees:GET',
+  level: 'info'
+}
+{ message: 'message:jwt expired ', level: 'error' }
+{
+  message: 'Sat Aug 19 2023 14:29:49 GMT+0530 (India Standard Time):/employees:GET',
+  level: 'info'
+}
+{ message: 'Recieved All Departments', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 14:30:06 GMT+0530 (India Standard Time):/assets:POST',
+  level: 'info'
+}
+{
+  message: 'Sat Aug 19 2023 14:33:36 GMT+0530 (India Standard Time):/assets:POST',
+  level: 'info'
+}
+{
+  message: 'Sat Aug 19 2023 14:35:40 GMT+0530 (India Standard Time):/assets:POST',
+  level: 'info'
+}
+{ message: 'Created Asset with id 5', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 14:37:13 GMT+0530 (India Standard Time):/assets:GET',
+  level: 'info'
+}
+{ message: 'Received All Assets', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 14:38:06 GMT+0530 (India Standard Time):/assets/5:GET',
+  level: 'info'
+}
+{ message: 'Received Asset with id 5', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 14:39:45 GMT+0530 (India Standard Time):/assets/5:PATCH',
+  level: 'info'
+}
+{ message: 'message:jwt must be provided ', level: 'error' }
+{
+  message: 'Sat Aug 19 2023 14:40:04 GMT+0530 (India Standard Time):/assets/5:PATCH',
+  level: 'info'
+}
+{ message: 'Updated Asset with id 5', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 14:40:42 GMT+0530 (India Standard Time):/assets/5:PATCH',
+  level: 'info'
+}
+{ message: 'Updated Asset with id 5', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 14:40:51 GMT+0530 (India Standard Time):/assets/5:PATCH',
+  level: 'info'
+}
+{ message: 'Updated Asset with id 5', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 14:41:45 GMT+0530 (India Standard Time):/assets/5:DELETE',
+  level: 'info'
+}
+{ message: 'Deleted Asset with id 5', level: 'info' }
+{
+  message: 'Sat Aug 19 2023 14:41:49 GMT+0530 (India Standard Time):/assets:GET',
+  level: 'info'
+}
+{ message: 'Received All Assets', level: 'info' }

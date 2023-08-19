@@ -11,6 +11,7 @@ import { Role } from "../utils/role.enum";
 import SetEmployeeDto from "../dto/set-employee.dto";
 import createResponse from "../utils/createResponse";
 import logger from "../utils/winston.logger";
+
 class EmployeeController {
   public router: express.Router;
 

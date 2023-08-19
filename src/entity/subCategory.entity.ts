@@ -12,9 +12,14 @@ class SubCategory extends AbstractEntity {
   @OneToMany(() => Asset, (asset) => asset.subcategory)
   asset: Asset;
 
+
   @ManyToOne(() => Category, (category) => category.subcategory)
   @JoinColumn()
   category: Category;
+
+    @Column()
+    categoryId:number;
+
 
   @OneToMany(() => RequestItem, (requestitem) => requestitem.subcategory)
   requestItem: RequestItem;

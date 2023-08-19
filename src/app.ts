@@ -10,6 +10,9 @@ import errorMiddleware from "./middleware/error.middleware";
 import rolesRoute from "./route/roles.route";
 import departmentRoute from "./route/department.route";
 import { requestRoute } from "./route/request.route";
+import categoryRoute from "./route/catgeory.route";
+import { subcategoryRoute } from "./route/subcategory.route";
+import { assetRoute } from "./route/asset.route";
 
 const server = express();
 server.use(cors());
@@ -19,10 +22,13 @@ server.use("/employees", employeeRoute);
 server.use("/roles", rolesRoute);
 server.use("/department", departmentRoute);
 server.use("/requests", requestRoute);
+server.use('/category',categoryRoute);
+server.use('/subcategory',subcategoryRoute);
+server.use('/assets',assetRoute);
+server.get('/',(req,res) => {
+    console.log(req.url);
+    res.status(200).send("Hello world typescript");
 
-server.get("/", (req, res) => {
-  console.log(req.url);
-  res.status(200).send("Hello world typescript");
 });
 
 server.use(errorMiddleware);

@@ -24,6 +24,7 @@ class Request extends AbstractEntity {
   @JoinColumn()
   asset: Asset;
 
+
   @Column()
   assetId: number;
 

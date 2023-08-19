@@ -22,6 +22,7 @@ class DepartmentService {
     const department = await this.departmentRepository.findDepartmentById(id);
     if (!department) {
       throw new HttpException(404, `Department not Found with id:${id}`);
+
     }
     return department;
   }

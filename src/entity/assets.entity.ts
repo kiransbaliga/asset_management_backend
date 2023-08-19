@@ -17,9 +17,17 @@ class Asset extends AbstractEntity {
   @JoinColumn()
   employee: Employee;
 
+
   @ManyToOne(() => SubCategory, (subCategory) => subCategory.asset)
   @JoinColumn()
   subcategory: SubCategory;
+
+    @Column({ nullable: true })
+    employeeId:number;
+
+    @Column()
+    subcategoryId:number;
+
 
   @OneToMany(() => Request, (request) => request.asset)
   request: Request;

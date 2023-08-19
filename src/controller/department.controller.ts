@@ -15,7 +15,6 @@ class DepartmentController {
 
   constructor(private departmentService: DepartmentService) {
     this.router = express.Router();
-
     this.router.get("/", this.getAllDepartment);
     this.router.get("/:id", this.getDepartmentById);
     this.router.post(
