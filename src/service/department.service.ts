@@ -32,6 +32,7 @@ class DepartmentService{
     async createDepartment(createDepartmentDto:CreateDepartmentDto): Promise <Department> {
         const department = new Department();
         department.name=createDepartmentDto.name;
+        console.log('Department Service');
         return this.departmentRepository.createDepartment(department);
     }
     async updateDepartmentById(id:number,updateDepartmentDto: UpdateDepartmentDto): Promise <Department>

@@ -134,3 +134,13 @@
   message: 'status :403 message:You are not authorized to perform this action ',
   level: 'error'
 }
+{ message: 'message:jwt must be provided ', level: 'error' }
+{ message: 'message:invalid signature ', level: 'error' }
+{ message: 'message:invalid signature ', level: 'error' }
+{ message: 'message:jwt must be provided ', level: 'error' }
+{ message: 'message:jwt must be provided ', level: 'error' }
+{ message: 'message:jwt must be provided ', level: 'error' }
+{ message: 'message:jwt must be provided ', level: 'error' }
+{ message: 'message:jwt must be provided ', level: 'error' }
+{ message: 'status :400 message:Validation Errors ', level: 'error' }
+{ message: 'status :400 message:Validation Errors ', level: 'error' }

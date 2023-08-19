@@ -26,6 +26,7 @@ class DepartmentRepository{
     }
 
     createDepartment(newDepartment:Department): Promise<Department> {
+        console.log('Department Repository');
         return this.departmentRepository.save(newDepartment)
     }
     
@@ -42,4 +43,4 @@ class DepartmentRepository{
 
 }
 
-export default DepartmentRepository;
+export default DepartmentRepository; 

@@ -10,6 +10,7 @@ import HttpException from "./exceptions/http.exception";
 import errorMiddleware from "./middleware/error.middleware";
 import rolesRoute from "./route/roles.route";
 import departmentRoute from "./route/department.route";
+import categoryRoute from "./route/catgeory.route";
 
 
 const server=express();
@@ -19,8 +20,7 @@ server.use(loggerMiddleware);
 server.use('/employees',employeeRoute);
 server.use('/roles',rolesRoute);
 server.use('/department',departmentRoute);
-
-
+server.use('/category',categoryRoute);
 
 server.get('/',(req,res) => {
     console.log(req.url);

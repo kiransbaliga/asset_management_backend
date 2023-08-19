@@ -25,7 +25,7 @@ class DepartmentController{
 
         this.router.get("/",this.getAllDepartment);
         this.router.get("/:id",this.getDepartmentById);
-        this.router.post("/",authenticate,authorize([Role.HR,Role.Admin]),this.createDepartment);
+        this.router.post("/",this.createDepartment);
         this.router.put("/:id",authenticate,authorize([Role.HR,Role.Admin]),this.updateDepartment);
         this.router.delete("/:id",authenticate,authorize([Role.HR,Role.Admin]),this.deleteDepartment);
 
