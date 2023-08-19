@@ -23,21 +23,31 @@ class RequestService {
     return request;
   }
 
-  createRequest(createRequestDto: CreateRequestDto): Promise<Request> {
+  async createRequest(createRequestDto: CreateRequestDto): Promise<Request> {
     const request = new Request();
     request.reason = createRequestDto.reason;
-
     request.employeeId = createRequestDto.employeeId;
     request.assetId = createRequestDto.assetId;
-    const requestItemArray = [];
+    const savedRequest = await this.requestRepository.createRequest(request);
     createRequestDto.requestItem.forEach((item) => {
       const requestItem = new RequestItem();
       requestItem.subcategoryId = item.subcategoryId;
       requestItem.count = item.count;
-      requestItemArray.push(requestItem);
+      requestItem.request = savedRequest;
+      this.requestRepository.createRequestItem(requestItem);
     });
-    request.requestItem = requestItemArray;
-    return this.requestRepository.createRequest(request);
+    return savedRequest;
+    // const requestItemArray = [];
+    // createRequestDto.requestItem.forEach((item) => {
+    //   console.log(item);
+    //   const requestItem = new RequestItem();
+    //   requestItem.subcategoryId = item.subcategoryId;
+    //   requestItem.count = item.count;
+    //   requestItemArray.push(requestItem);
+    // });
+    // console.log(requestItemArray);
+    // request.requestItem = requestItemArray;
+    // return this.requestRepository.createRequest(request);
   }
 
   async updateRequestById(
@@ -49,14 +59,16 @@ class RequestService {
     request.reason = updateRequestDto.reason;
     request.employeeId = updateRequestDto.employeeId;
     request.status = updateRequestDto.status;
-    const requestItemArray = [];
-    updateRequestDto.requestItem.forEach((item) => {
-      const requestItem = new RequestItem();
+    const updatedRequest = await this.requestRepository.updateRequestById(
+      request
+    );
+    updateRequestDto.requestItem.forEach(async (item) => {
+      const requestItem = await this.requestRepository.findRequestItemById(item.requestId);
       requestItem.subcategoryId = item.subcategoryId;
       requestItem.count = item.count;
-      requestItemArray.push(requestItem);
+      requestItem.request = updatedRequest;
+      this.requestRepository.updateRequestItemById(requestItem);
     });
-    request.requestItem = requestItemArray;
     return this.requestRepository.updateRequestById(request);
   }
 

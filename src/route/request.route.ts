@@ -3,9 +3,11 @@ import RequestRepository from "../repository/request.repository";
 import Request from "../entity/request.entity";
 import RequestService from "../service/request.service";
 import RequestController from "../controller/request.controller";
+import RequestItem from "../entity/requestItem.entity";
 
 const requestRepository = new RequestRepository(
-  dataSource.getRepository(Request)
+  dataSource.getRepository(Request),
+  dataSource.getRepository(RequestItem)
 );
 const requestService = new RequestService(requestRepository);
 const requestController = new RequestController(requestService);

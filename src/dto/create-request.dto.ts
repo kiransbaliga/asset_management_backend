@@ -14,10 +14,8 @@ class CreateRequestDto {
   reason: string;
 
   @IsNotEmpty()
-  @IsString()
   employeeId: number;
 
-  @IsNumber()
   assetId: number;
 
   @IsNotEmpty()

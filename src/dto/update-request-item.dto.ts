@@ -8,6 +8,10 @@ class UpdateRequestItemDto {
   @IsNotEmpty()
   @IsNumber()
   subcategoryId: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  requestId: number;
 }
 
 export default UpdateRequestItemDto;

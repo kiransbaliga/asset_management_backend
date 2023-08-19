@@ -24,8 +24,7 @@ class Request extends AbstractEntity {
   @JoinColumn()
   asset: Asset;
 
-
-  @Column()
+  @Column({ nullable: true })
   assetId: number;
 
   @OneToMany(() => RequestItem, (requestItem) => requestItem.request)
