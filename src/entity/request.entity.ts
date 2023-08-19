@@ -32,6 +32,13 @@ class Request extends AbstractEntity{
     @OneToMany(()=>RequestItem,(requestItem)=>requestItem.request)
     requestItem:RequestItem;
 
+    @Column()
+    employeeId:number;
+
+    @Column()
+    assetId:number;
+    
+
     
 
 

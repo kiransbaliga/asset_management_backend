@@ -25,6 +25,13 @@ class RequestItem extends AbstractEntity{
     @JoinColumn()
     subcategory:SubCategory;
 
+    @Column()
+    requestId:number;
+
+    @Column()
+    subcategoryId:number;
+
+
 }
 
 export default RequestItem;
