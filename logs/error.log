@@ -148,3 +148,7 @@
 { message: 'message:jwt must be provided ', level: 'error' }
 { message: 'message:jwt must be provided ', level: 'error' }
 { message: 'message:jwt must be provided ', level: 'error' }
+{ message: 'message:jwt expired ', level: 'error' }
+{ message: 'message:jwt expired ', level: 'error' }
+{ message: 'message:jwt expired ', level: 'error' }
+{ message: 'message:jwt must be provided ', level: 'error' }
