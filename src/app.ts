@@ -11,6 +11,7 @@ import errorMiddleware from "./middleware/error.middleware";
 import rolesRoute from "./route/roles.route";
 import departmentRoute from "./route/department.route";
 import categoryRoute from "./route/catgeory.route";
+import { subcategoryRoute } from "./route/subcategory.route";
 
 
 const server=express();
@@ -21,6 +22,7 @@ server.use('/employees',employeeRoute);
 server.use('/roles',rolesRoute);
 server.use('/department',departmentRoute);
 server.use('/category',categoryRoute);
+server.use('/subcategory',subcategoryRoute);
 
 server.get('/',(req,res) => {
     console.log(req.url);

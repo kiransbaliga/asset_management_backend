@@ -30,6 +30,8 @@ class SubCategory extends AbstractEntity{
     @OneToMany(()=>RequestItem,(requestitem)=>requestitem.subcategory)
     requestItem:RequestItem;
 
+    @Column()
+    categoryId:number;
 
     
     
