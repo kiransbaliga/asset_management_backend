@@ -36,7 +36,7 @@ class Asset extends AbstractEntity{
     @Column({default:AssetStatus.ALLOCATED})
     status:AssetStatus;
 
-    @Column()
+    @Column({ nullable: true })
     employeeId:number;
 
     @Column()

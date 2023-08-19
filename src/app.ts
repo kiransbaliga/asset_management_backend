@@ -12,6 +12,7 @@ import rolesRoute from "./route/roles.route";
 import departmentRoute from "./route/department.route";
 import categoryRoute from "./route/catgeory.route";
 import { subcategoryRoute } from "./route/subcategory.route";
+import { assetRoute } from "./route/asset.route";
 
 
 const server=express();
@@ -23,6 +24,7 @@ server.use('/roles',rolesRoute);
 server.use('/department',departmentRoute);
 server.use('/category',categoryRoute);
 server.use('/subcategory',subcategoryRoute);
+server.use('/assets',assetRoute);
 
 server.get('/',(req,res) => {
     console.log(req.url);
