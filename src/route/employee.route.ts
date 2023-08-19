@@ -7,15 +7,15 @@ import EmployeeRepository from "../repository/employee.repository";
 import EmployeeService from "../service/employee.service";
 
 const employeeRepository = new EmployeeRepository(
-    dataSource.getRepository(Employee)
+  dataSource.getRepository(Employee)
 );
 const departmentRepository = new DepartmentRepository(
-    dataSource.getRepository(Department)
+  dataSource.getRepository(Department)
 );
 
-const employeeService= new EmployeeService(employeeRepository);
+const employeeService = new EmployeeService(employeeRepository);
 
-const employeeController=new EmployeeController(employeeService); 
+const employeeController = new EmployeeController(employeeService);
 const employeeRoute = employeeController.router;
 
-export  { employeeRoute, employeeService };
+export { employeeRoute, employeeService };
