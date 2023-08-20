@@ -167,3 +167,9 @@
 { message: 'status :400 message:Validation Errors ', level: 'error' }
 { message: 'status :400 message:Validation Errors ', level: 'error' }
 { message: 'status :400 message:Validation Errors ', level: 'error' }
+{ message: 'status :400 message:Validation Errors ', level: 'error' }
+{ message: 'status :400 message:Validation Errors ', level: 'error' }
+{
+  message: 'status :404 message:Request already Resolved ',
+  level: 'error'
+}

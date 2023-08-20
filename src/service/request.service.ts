@@ -4,9 +4,15 @@ import HttpException from "../exceptions/http.exception";
 import CreateRequestDto from "../dto/create-request.dto";
 import RequestItem from "../entity/requestItem.entity";
 import UpdateRequestDto from "../dto/update-request.dto";
+import { RequestStatus } from "../utils/requestStatus.enum";
+import { AssetStatus } from "../utils/assetStatus.enum";
+import AssetRepository from "../repository/asset.repository";
 
 class RequestService {
-  constructor(private requestRepository: RequestRepository) {}
+  constructor(
+    private requestRepository: RequestRepository,
+    private assetRepository: AssetRepository
+  ) {}
 
   getAllRequests(
     offset: number,
@@ -63,7 +69,9 @@ class RequestService {
       request
     );
     updateRequestDto.requestItem.forEach(async (item) => {
-      const requestItem = await this.requestRepository.findRequestItemById(item.requestId);
+      const requestItem = await this.requestRepository.findRequestItemById(
+        item.requestId
+      );
       requestItem.subcategoryId = item.subcategoryId;
       requestItem.count = item.count;
       requestItem.request = updatedRequest;
@@ -75,6 +83,50 @@ class RequestService {
   async deleteRequestById(id: number): Promise<Request> {
     const request = await this.requestRepository.findRequestById(id);
     return this.requestRepository.deleteRequestById(request);
+  }
+
+  async resolveRequestById(id: number): Promise<Request> {
+    const request = await this.requestRepository.findRequestById(id);
+    if (request.status != RequestStatus.PENDING)
+      throw new HttpException(404, "Request already Resolved/rejected");
+    if (!request.assetId) {
+      request.status = RequestStatus.RESOLVED;
+      const requestItems =
+        await this.requestRepository.findAllRequestItemsByRequestId(id);
+      requestItems.forEach(async (item) => {
+        const assets =
+          await this.assetRepository.findAssetsBySubcategoryIdandCount(
+            item.subcategoryId,
+            item.count
+          );
+        if (assets.length <= 0)
+          throw new HttpException(404, "Not enough assets to b assigned");
+        assets.forEach(async (asset) => {
+          asset.employeeId = request.employeeId;
+          asset.status = AssetStatus.ALLOCATED;
+          await this.assetRepository.updateAssetById(asset);
+        });
+      });
+    } else {
+      request.status = RequestStatus.RESOLVED;
+      const current_asset = await this.assetRepository.findAssetById(
+        request.assetId
+      );
+      console.log(current_asset);
+      const [newAsset] =
+        await this.assetRepository.findAssetsBySubcategoryIdandCount(
+          current_asset.subcategoryId,
+          1
+        );
+      console.log(newAsset);
+      current_asset.employeeId = null;
+      current_asset.status = AssetStatus.UNALLOCATED;
+      newAsset.employeeId = request.employeeId;
+      newAsset.status = AssetStatus.ALLOCATED;
+      await this.assetRepository.updateAssetById(current_asset);
+      await this.assetRepository.updateAssetById(newAsset);
+    }
+    return this.requestRepository.updateRequestById(request);
   }
 }
 
