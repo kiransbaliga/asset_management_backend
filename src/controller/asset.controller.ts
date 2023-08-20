@@ -21,6 +21,7 @@ class AssetController {
         this.router = express.Router();
 
         this.router.get("/", authenticate, this.getAllAssets);
+        this.router.get("/employee/:id", authenticate, this.getAssetByEmployeeId);
         this.router.get("/:id", authenticate, this.getAssetById);
         this.router.post("/", this.createAsset);
         this.router.delete("/:id", authenticate, authorize([Role.Admin]), this.deleteAsset);
@@ -45,6 +46,17 @@ class AssetController {
             const asset = await this.assetService.getAssetById(assetId);
             res.status(200).send(createResponse(asset, "OK", null, 1));
             logger.info(`Received Asset with id ${asset.id}`);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    getAssetByEmployeeId = async (req: express.Request, res: express.Response, next: NextFunction) => {
+        try {
+            const employeeId = Number(req.params.id);
+            const [assets,total] = await this.assetService.getAssetByEmployeeId(employeeId);
+            res.status(200).send(createResponse(assets, "OK", null, total));
+            logger.info(`Received Assets`);
         } catch (error) {
             next(error);
         }

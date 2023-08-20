@@ -8,7 +8,11 @@ class AssetRepository {
     constructor(private assetRepository: Repository<Asset>) {
 
     }
-
+    findAssetByEmployeeId(employee_id:number): Promise<[Asset[],number]> {
+        return this.assetRepository.findAndCount({
+            where:{employeeId:employee_id}
+        });
+    }
     findAllAssets(offset: number, pageLength: number): Promise<[Asset[], number]> {
         return this.assetRepository.findAndCount({
             skip: offset * pageLength,
