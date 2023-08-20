@@ -31,6 +31,11 @@ class RequestRepository {
       where: { id: id },
     });
   }
+  findAllRequestItemsByRequestId(id: number): Promise<RequestItem[]> {
+    return this.requestItemRepository.find({
+      where: { requestId: id },
+    });
+  }
   createRequest(newRequest: Request): Promise<Request> {
     return this.requestRepository.save(newRequest);
   }

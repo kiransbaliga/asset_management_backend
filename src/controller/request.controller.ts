@@ -18,6 +18,7 @@ class RequestController {
     this.router.post("/", this.createRequest);
     this.router.put("/:id", this.updateRequest);
     this.router.delete("/:id", this.deleteRequest);
+    this.router.post('/:id', this.resolveRequest);
   }
   getAllRequests = async (
     req: express.Request,
@@ -110,6 +111,21 @@ class RequestController {
       next(e);
     }
   };
+
+  resolveRequest = async (
+    req: express.Request,
+    res: express.Response,
+    next: NextFunction
+  ) => {
+    try {
+      const requestId = Number(req.params.id);
+      const requests = await this.requestService.resolveRequestById(requestId);
+      res.status(200).send(createResponse(requests, "0K", null, 1));
+      logger.info(`Recieved Request with id ${requests.id}`);
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 export default RequestController;
