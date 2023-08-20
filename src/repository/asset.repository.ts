@@ -42,6 +42,9 @@ class AssetRepository {
   createAsset(newAsset: Asset): Promise<Asset> {
     return this.assetRepository.save(newAsset);
   }
+  createBatchAsset(newAsset: Asset[]): Promise<Asset[]> {
+    return this.assetRepository.save(newAsset);
+  }
 
   updateAssetById(updatedAsset: Asset): Promise<Asset> {
     return this.assetRepository.save(updatedAsset);
