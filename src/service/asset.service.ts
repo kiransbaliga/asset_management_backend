@@ -9,55 +9,66 @@ import bcrypt from "bcrypt";
 import jsonwebtoken from "jsonwebtoken";
 
 class AssetService {
-    
-    constructor(private assetRepository: AssetRepository) {
+  constructor(private assetRepository: AssetRepository) {}
 
+  getAllAssets(offset: number, pageLength: number): Promise<[Asset[], number]> {
+    return this.assetRepository.findAllAssets(offset, pageLength);
+  }
+
+  async getAssetById(id: number): Promise<Asset | null> {
+    const asset = await this.assetRepository.findAssetById(id);
+    if (!asset) {
+      throw new HttpException(404, `Asset not Found with id:${id}`);
     }
+    return asset;
+  }
 
-    getAllAssets(offset: number, pageLength: number): Promise<[Asset[], number]> {
-        return this.assetRepository.findAllAssets(offset, pageLength);
-    }
+  async getAssetByDepartmentId(subcategory_id: number): Promise<Asset | null> {
+    const asset = await this.assetRepository.findAssetBySubCategoryId(
+      subcategory_id
+    );
+    return asset;
+  }
 
-    async getAssetById(id: number): Promise<Asset | null> {
-        const asset = await this.assetRepository.findAssetById(id);
-        if (!asset) {
-            throw new HttpException(404, `Asset not Found with id:${id}`);
-        }
-        return asset;
-    }
+  async createAsset(createAssetDto: CreateAssetDto): Promise<Asset> {
+    const asset = new Asset();
+    asset.name = createAssetDto.name;
+    asset.serial_no = createAssetDto.serial_no;
+    asset.subcategoryId = createAssetDto.subcategoryId;
 
-    async getAssetByDepartmentId(subcategory_id: number): Promise<Asset | null> {
-        const asset = await this.assetRepository.findAssetBySubCategoryId(subcategory_id);
-        return asset;
-    }
+    const createdAsset = await this.assetRepository.createAsset(asset);
+    return createdAsset;
+  }
+  async createBatchAsset(assetDto: CreateAssetDto[]): Promise<Asset[]> {
+    const assetArray = [];
+    assetDto.forEach((item) => {
+      const asset = new Asset();
+      asset.name = item.name;
+      asset.serial_no = item.serial_no;
+      asset.subcategoryId = item.subcategoryId;
+      console.log(asset);
+      assetArray.push(asset);
+    });
+    return this.assetRepository.createBatchAsset(assetArray);
+  }
 
-    async createAsset(createAssetDto: CreateAssetDto): Promise<Asset> {
-        const asset = new Asset();
-        asset.name = createAssetDto.name;
-        asset.serial_no = createAssetDto.serial_no;
-        asset.subcategoryId = createAssetDto.subcategoryId;
-        
-        const createdAsset = await this.assetRepository.createAsset(asset);
-        return createdAsset;
-    }
+  async updateAssetFieldById(
+    id: number,
+    updateAssetDto: SetAssetDto
+  ): Promise<Asset> {
+    const asset = await this.assetRepository.findAssetById(id);
+    asset.name = updateAssetDto.name;
+    asset.serial_no = updateAssetDto.serial_no;
+    asset.subcategoryId = updateAssetDto.subcategoryId;
+    asset.status = updateAssetDto.status;
+    asset.employeeId = updateAssetDto.employeeId;
+    return this.assetRepository.updateAssetById(asset);
+  }
 
-   
-  
-
-    async updateAssetFieldById(id: number, updateAssetDto: SetAssetDto): Promise<Asset> {
-        const asset = await this.assetRepository.findAssetById(id);
-        asset.name = updateAssetDto.name;
-        asset.serial_no = updateAssetDto.serial_no;
-        asset.subcategoryId = updateAssetDto.subcategoryId;
-        asset.status=updateAssetDto.status;
-        asset.employeeId=updateAssetDto.employeeId;
-        return this.assetRepository.updateAssetById(asset);
-    }
-
-    async deleteAssetById(id: number): Promise<Asset> {
-        const asset = await this.assetRepository.findAssetById(id);
-        return this.assetRepository.deleteAssetById(asset);
-    }
+  async deleteAssetById(id: number): Promise<Asset> {
+    const asset = await this.assetRepository.findAssetById(id);
+    return this.assetRepository.deleteAssetById(asset);
+  }
 }
 
 export default AssetService;
