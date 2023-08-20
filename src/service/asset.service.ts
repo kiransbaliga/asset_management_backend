@@ -26,9 +26,9 @@ class AssetService {
         return asset;
     }
 
-    async getAssetBySubCategoryId(subcategory_id: number): Promise<Asset | null> {
-        const asset = await this.assetRepository.findAssetBySubCategoryId(subcategory_id);
-        return asset;
+    async getAssetBySubCategoryId(subcategory_id: number): Promise<[Asset[],number]> {
+         
+        return this.assetRepository.findAssetBySubCategoryId(subcategory_id);
     }
 
     async getAssetByEmployeeId(employee_id:number): Promise<[Asset[],number]> {

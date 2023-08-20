@@ -22,6 +22,7 @@ class AssetController {
 
         this.router.get("/", authenticate, this.getAllAssets);
         this.router.get("/employee/:id", authenticate, this.getAssetByEmployeeId);
+        this.router.get("/subcategory/:id", authenticate, this.getAssetBySubCategoryId);
         this.router.get("/:id", authenticate, this.getAssetById);
         this.router.post("/", this.createAsset);
         this.router.delete("/:id", authenticate, authorize([Role.Admin]), this.deleteAsset);
@@ -55,6 +56,17 @@ class AssetController {
         try {
             const employeeId = Number(req.params.id);
             const [assets,total] = await this.assetService.getAssetByEmployeeId(employeeId);
+            res.status(200).send(createResponse(assets, "OK", null, total));
+            logger.info(`Received Assets`);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    getAssetBySubCategoryId = async (req: express.Request, res: express.Response, next: NextFunction) => {
+        try {
+            const subcategoryId = Number(req.params.id);
+            const [assets,total] = await this.assetService.getAssetBySubCategoryId(subcategoryId);
             res.status(200).send(createResponse(assets, "OK", null, total));
             logger.info(`Received Assets`);
         } catch (error) {

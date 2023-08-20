@@ -21,6 +21,7 @@ class SubCategoryController {
         this.router = express.Router();
 
         this.router.get("/", authenticate, this.getAllSubcategories);
+        this.router.get("/category/:id", authenticate, this.getSubCategoryByCategoryId);
         this.router.get("/:id", authenticate, this.getSubcategoryById);
         this.router.post("/", this.createSubcategory);
         this.router.delete("/:id", authenticate, authorize([Role.Admin]), this.deleteSubcategory);
@@ -34,6 +35,16 @@ class SubCategoryController {
             const [subcategories, total] = await this.subcategoryService.getAllSubCategories(offset, pageLength);
             res.status(200).send(createResponse(subcategories, "OK", null, total));
             logger.info('Received All Subcategories');
+        } catch (error) {
+            next(error);
+        }
+    }
+    getSubCategoryByCategoryId = async (req: express.Request, res: express.Response, next: NextFunction) => {
+        try {
+            const categoryId = Number(req.params.id);
+            const [subcategory,total] = await this.subcategoryService.getSubCategoryByCategoryId(categoryId);
+            res.status(200).send(createResponse(subcategory, "OK", null, total));
+            logger.info(`Received subcategories`);
         } catch (error) {
             next(error);
         }

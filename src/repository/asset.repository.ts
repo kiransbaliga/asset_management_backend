@@ -27,10 +27,9 @@ class AssetRepository {
         });
     }
 
-    findAssetBySubCategoryId(subcategory_id: number): Promise<Asset> {
-        return this.assetRepository.findOne({
-            where: { subcategoryId: subcategory_id },
-            relations: ["address"]
+    findAssetBySubCategoryId(subcategory_id: number): Promise<[Asset[],number]> {
+        return this.assetRepository.findAndCount({
+            where: { subcategoryId: subcategory_id }
         });
     }
 
