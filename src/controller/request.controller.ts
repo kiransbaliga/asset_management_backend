@@ -18,7 +18,7 @@ class RequestController {
     this.router.post("/", this.createRequest);
     this.router.put("/:id", this.updateRequest);
     this.router.delete("/:id", this.deleteRequest);
-    this.router.post('/:id', this.resolveRequest);
+    this.router.post("/:id", this.resolveRequest);
   }
   getAllRequests = async (
     req: express.Request,
@@ -27,11 +27,13 @@ class RequestController {
     next: NextFunction
   ) => {
     try {
+      const status = String(req.query.status);
       const offset = Number(req.query.offset ? req.query.offset : 0);
       const pageLength = Number(req.query.length ? req.query.length : 10);
       const [requests, total] = await this.requestService.getAllRequests(
         offset,
-        pageLength
+        pageLength,
+        status
       );
       res.status(200).send(createResponse(requests, "0K", null, total));
       logger.info("Recieved All Requests");
@@ -125,7 +127,7 @@ class RequestController {
     } catch (e) {
       next(e);
     }
-  }
+  };
 }
 
 export default RequestController;

@@ -12,9 +12,11 @@ class RequestRepository {
 
   findAllRequests(
     offset: number,
-    pageLength: number
+    pageLength: number,
+    filter: Object
   ): Promise<[Request[], number]> {
     return this.requestRepository.findAndCount({
+      where: filter,
       skip: offset * pageLength,
       take: pageLength,
       relations: ["employee", "asset", "requestItem"],

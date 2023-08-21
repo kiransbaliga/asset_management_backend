@@ -7,19 +7,40 @@ import SubCategoryRepository from "../repository/subcategory.repository";
 import AssetRepository from "../repository/asset.repository";
 import bcrypt from "bcrypt";
 import jsonwebtoken from "jsonwebtoken";
+import CategoryRepository from "../repository/category.repository";
 
 class AssetService {
-  constructor(private assetRepository: AssetRepository) {}
+  constructor(
+    private assetRepository: AssetRepository,
+    private categoryRepository: CategoryRepository,
+    private subCategoryRepository: SubCategoryRepository
+  ) {}
 
   getAllAssets(
     offset: number,
     pageLength: number,
     subcategory: number,
-    status: string
+    status: string,
+    category: string
   ): Promise<[Asset[], number]> {
     const filter = {};
     if (subcategory) filter["subcategoryId"] = subcategory;
     if (status != "undefined") filter["status"] = status;
+    // if category is not undefined then we need to fetch all subcategories of that category and fetch all the assets of those subcategories
+    if (category != "undefined") {
+      const subcategoryFilter = {};
+      // subcategoryFilter["categoryId"] = category;
+      this.subCategoryRepository
+        .findAllSubcategory(0, 100)
+        .then((subcategories) => {
+          const subcategoryIds = subcategories[0].map((subcategory) => {
+            return subcategory.id;
+          });
+          filter["subcategoryId"] = subcategoryIds;
+          return this.assetRepository.findAllAssets(offset, pageLength, filter);
+        });
+    }
+
     return this.assetRepository.findAllAssets(offset, pageLength, filter);
   }
 

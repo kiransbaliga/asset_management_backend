@@ -16,9 +16,12 @@ class RequestService {
 
   getAllRequests(
     offset: number,
-    pageLength: number
+    pageLength: number,
+    status: string
   ): Promise<[Request[], number]> {
-    return this.requestRepository.findAllRequests(offset, pageLength);
+    const filter = {};
+    if (status != "undefined") filter["status"] = status;
+    return this.requestRepository.findAllRequests(offset, pageLength, filter);
   }
 
   getRequestById(id: number): Promise<Request> {
