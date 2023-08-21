@@ -35,7 +35,7 @@ class AssetRepository {
 
   findAssetByEmployeeId(employee_id: number): Promise<[Asset[], number]> {
     return this.assetRepository.findAndCount({
-      where: { subcategoryId: employee_id },
+      where: { employeeId: employee_id },
     });
   }
 
