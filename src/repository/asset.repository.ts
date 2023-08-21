@@ -4,16 +4,17 @@ import Asset from "../entity/assets.entity";
 import { AssetStatus } from "../utils/assetStatus.enum";
 
 class AssetRepository {
-
   private dataSource: DataSource;
 
   constructor(private assetRepository: Repository<Asset>) {}
 
   findAllAssets(
     offset: number,
-    pageLength: number
+    pageLength: number,
+    filter: Object
   ): Promise<[Asset[], number]> {
     return this.assetRepository.findAndCount({
+      where: filter,
       skip: offset * pageLength,
       take: pageLength,
       select: ["subcategory"],
@@ -26,13 +27,13 @@ class AssetRepository {
     });
   }
 
-  findAssetBySubCategoryId(subcategory_id: number): Promise<[Asset[],number]> {
+  findAssetBySubCategoryId(subcategory_id: number): Promise<[Asset[], number]> {
     return this.assetRepository.findAndCount({
       where: { subcategoryId: subcategory_id },
     });
   }
 
-  findAssetByEmployeeId(employee_id: number): Promise<[Asset[],number]> {
+  findAssetByEmployeeId(employee_id: number): Promise<[Asset[], number]> {
     return this.assetRepository.findAndCount({
       where: { subcategoryId: employee_id },
     });
@@ -59,7 +60,6 @@ class AssetRepository {
   deleteAssetById(deletedAsset: Asset): Promise<Asset> {
     return this.assetRepository.softRemove(deletedAsset);
   }
-
 }
 
 export default AssetRepository;

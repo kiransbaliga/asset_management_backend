@@ -11,8 +11,16 @@ import jsonwebtoken from "jsonwebtoken";
 class AssetService {
   constructor(private assetRepository: AssetRepository) {}
 
-  getAllAssets(offset: number, pageLength: number): Promise<[Asset[], number]> {
-    return this.assetRepository.findAllAssets(offset, pageLength);
+  getAllAssets(
+    offset: number,
+    pageLength: number,
+    subcategory: number,
+    status: string
+  ): Promise<[Asset[], number]> {
+    const filter = {};
+    if (subcategory) filter["subcategoryId"] = subcategory;
+    if (status != "undefined") filter["status"] = status;
+    return this.assetRepository.findAllAssets(offset, pageLength, filter);
   }
 
   async getAssetById(id: number): Promise<Asset | null> {
@@ -30,22 +38,20 @@ class AssetService {
   //   return asset;
   // }
 
+  async getAssetBySubCategoryId(
+    subcategory_id: number
+  ): Promise<[Asset[], number]> {
+    return this.assetRepository.findAssetBySubCategoryId(subcategory_id);
+  }
 
-    async getAssetBySubCategoryId(subcategory_id: number): Promise<[Asset[],number]> {
-         
-        return this.assetRepository.findAssetBySubCategoryId(subcategory_id);
-    }
-
-    async getAssetByEmployeeId(employee_id:number): Promise<[Asset[],number]> {
-     
-        return this.assetRepository.findAssetByEmployeeId(employee_id);;
-    }
+  async getAssetByEmployeeId(employee_id: number): Promise<[Asset[], number]> {
+    return this.assetRepository.findAssetByEmployeeId(employee_id);
+  }
   async createAsset(createAssetDto: CreateAssetDto): Promise<Asset> {
     const asset = new Asset();
     asset.name = createAssetDto.name;
     asset.serial_no = createAssetDto.serial_no;
     asset.subcategoryId = createAssetDto.subcategoryId;
-
 
     const createdAsset = await this.assetRepository.createAsset(asset);
     return createdAsset;

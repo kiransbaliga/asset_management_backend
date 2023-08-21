@@ -24,16 +24,28 @@ class AssetController {
   constructor(private assetService: AssetService) {
     this.router = express.Router();
 
-   
-
     this.router.get("/", authenticate, this.getAllAssets);
     this.router.get("/employee/:id", authenticate, this.getAssetByEmployeeId);
-    this.router.get("/subcategory/:id", authenticate, this.getAssetBySubCategoryId);
+    this.router.get(
+      "/subcategory/:id",
+      authenticate,
+      this.getAssetBySubCategoryId
+    );
     this.router.get("/:id", authenticate, this.getAssetById);
     this.router.post("/upload", upload.single("file"), this.createBatchAsset);
     this.router.post("/", this.createAsset);
-    this.router.delete("/:id", authenticate, authorize([Role.Admin]), this.deleteAsset);
-    this.router.patch("/:id", authenticate, authorize([Role.Admin]), this.updateAssetField);
+    this.router.delete(
+      "/:id",
+      authenticate,
+      authorize([Role.Admin]),
+      this.deleteAsset
+    );
+    this.router.patch(
+      "/:id",
+      authenticate,
+      authorize([Role.Admin]),
+      this.updateAssetField
+    );
   }
 
   getAllAssets = async (
@@ -42,17 +54,21 @@ class AssetController {
     next: NextFunction
   ) => {
     try {
+     
+      const subcategory = Number(req.query.subcategory);
+      const status = String(req.query.status);
       const offset = Number(req.query.offset ? req.query.offset : 0);
       const pageLength = Number(req.query.length ? req.query.length : 10);
       const [assets, total] = await this.assetService.getAllAssets(
         offset,
-        pageLength
+        pageLength,
+        subcategory,
+        status
       );
       res.status(200).send(createResponse(assets, "OK", null, total));
       logger.info("Received All Assets");
     } catch (error) {
       next(error);
-
     }
   };
 
@@ -91,29 +107,39 @@ class AssetController {
     }
   };
 
-
-    getAssetByEmployeeId = async (req: express.Request, res: express.Response, next: NextFunction) => {
-        try {
-            const employeeId = Number(req.params.id);
-            const [assets,total] = await this.assetService.getAssetByEmployeeId(employeeId);
-            res.status(200).send(createResponse(assets, "OK", null, total));
-            logger.info(`Received Assets`);
-        } catch (error) {
-            next(error);
-        }
+  getAssetByEmployeeId = async (
+    req: express.Request,
+    res: express.Response,
+    next: NextFunction
+  ) => {
+    try {
+      const employeeId = Number(req.params.id);
+      const [assets, total] = await this.assetService.getAssetByEmployeeId(
+        employeeId
+      );
+      res.status(200).send(createResponse(assets, "OK", null, total));
+      logger.info(`Received Assets`);
+    } catch (error) {
+      next(error);
     }
+  };
 
-    getAssetBySubCategoryId = async (req: express.Request, res: express.Response, next: NextFunction) => {
-        try {
-            const subcategoryId = Number(req.params.id);
-            const [assets,total] = await this.assetService.getAssetBySubCategoryId(subcategoryId);
-            res.status(200).send(createResponse(assets, "OK", null, total));
-            logger.info(`Received Assets`);
-        } catch (error) {
-            next(error);
-        }
+  getAssetBySubCategoryId = async (
+    req: express.Request,
+    res: express.Response,
+    next: NextFunction
+  ) => {
+    try {
+      const subcategoryId = Number(req.params.id);
+      const [assets, total] = await this.assetService.getAssetBySubCategoryId(
+        subcategoryId
+      );
+      res.status(200).send(createResponse(assets, "OK", null, total));
+      logger.info(`Received Assets`);
+    } catch (error) {
+      next(error);
     }
-
+  };
 
   updateAssetField = async (
     req: express.Request,
