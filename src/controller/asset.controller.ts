@@ -54,7 +54,7 @@ class AssetController {
     next: NextFunction
   ) => {
     try {
-      const category = String(req.query.category);
+      const category = Number(req.query.category);
       const subcategory = Number(req.query.subcategory);
       const status = String(req.query.status);
       const offset = Number(req.query.offset ? req.query.offset : 0);
