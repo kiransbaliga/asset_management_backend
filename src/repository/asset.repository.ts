@@ -4,6 +4,7 @@ import Asset from "../entity/assets.entity";
 import { AssetStatus } from "../utils/assetStatus.enum";
 
 class AssetRepository {
+
   private dataSource: DataSource;
 
   constructor(private assetRepository: Repository<Asset>) {}
@@ -53,6 +54,7 @@ class AssetRepository {
   deleteAssetById(deletedAsset: Asset): Promise<Asset> {
     return this.assetRepository.softRemove(deletedAsset);
   }
+
 }
 
 export default AssetRepository;

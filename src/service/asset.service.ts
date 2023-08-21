@@ -30,11 +30,22 @@ class AssetService {
     return asset;
   }
 
+
+    async getAssetBySubCategoryId(subcategory_id: number): Promise<[Asset[],number]> {
+         
+        return this.assetRepository.findAssetBySubCategoryId(subcategory_id);
+    }
+
+    async getAssetByEmployeeId(employee_id:number): Promise<[Asset[],number]> {
+     
+        return this.assetRepository.findAssetByEmployeeId(employee_id);;
+    }
   async createAsset(createAssetDto: CreateAssetDto): Promise<Asset> {
     const asset = new Asset();
     asset.name = createAssetDto.name;
     asset.serial_no = createAssetDto.serial_no;
     asset.subcategoryId = createAssetDto.subcategoryId;
+
 
     const createdAsset = await this.assetRepository.createAsset(asset);
     return createdAsset;

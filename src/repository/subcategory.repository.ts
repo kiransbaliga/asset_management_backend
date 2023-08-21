@@ -23,8 +23,8 @@ class SubCategoryRepository {
         });
     }
 
-    findSubcategoryByCategoryId(category_id: number): Promise<SubCategory> {
-        return this.subcategoryRepository.findOne({
+    findSubcategoryByCategoryId(category_id: number): Promise<[SubCategory[],number]> {
+        return this.subcategoryRepository.findAndCount({
             where: { categoryId: category_id }
         });
     }

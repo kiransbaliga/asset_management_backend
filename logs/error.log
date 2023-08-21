@@ -152,6 +152,8 @@
 { message: 'message:jwt expired ', level: 'error' }
 { message: 'message:jwt expired ', level: 'error' }
 { message: 'message:jwt must be provided ', level: 'error' }
+{ message: 'message:jwt expired ', level: 'error' }
+{ message: 'message:jwt must be provided ', level: 'error' }
 { message: 'message:invalid signature ', level: 'error' }
 { message: 'status :400 message:Validation Errors ', level: 'error' }
 { message: 'status :400 message:Validation Errors ', level: 'error' }
@@ -176,3 +178,4 @@
 { message: 'status :400 message:Validation Errors ', level: 'error' }
 { message: 'message:jwt must be provided ', level: 'error' }
 { message: 'message:jwt expired ', level: 'error' }
+

@@ -58,6 +58,7 @@ class AssetController {
       logger.info("Received All Assets");
     } catch (error) {
       next(error);
+
     }
   };
 
@@ -95,6 +96,30 @@ class AssetController {
       next(error);
     }
   };
+
+
+    getAssetByEmployeeId = async (req: express.Request, res: express.Response, next: NextFunction) => {
+        try {
+            const employeeId = Number(req.params.id);
+            const [assets,total] = await this.assetService.getAssetByEmployeeId(employeeId);
+            res.status(200).send(createResponse(assets, "OK", null, total));
+            logger.info(`Received Assets`);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    getAssetBySubCategoryId = async (req: express.Request, res: express.Response, next: NextFunction) => {
+        try {
+            const subcategoryId = Number(req.params.id);
+            const [assets,total] = await this.assetService.getAssetBySubCategoryId(subcategoryId);
+            res.status(200).send(createResponse(assets, "OK", null, total));
+            logger.info(`Received Assets`);
+        } catch (error) {
+            next(error);
+        }
+    }
+
 
   updateAssetField = async (
     req: express.Request,

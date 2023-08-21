@@ -27,9 +27,9 @@ class SubCategoryService {
         return subcategory;
     }
 
-    async getSubCategoryByCategoryId(category_id: number): Promise<SubCategory | null> {
-        const subcategory = await this.subcategoryRepository.findSubcategoryByCategoryId(category_id);
-        return subcategory;
+    async getSubCategoryByCategoryId(category_id: number): Promise<[SubCategory[],number]> {
+         
+        return this.subcategoryRepository.findSubcategoryByCategoryId(category_id);
     }
 
     async createSubCategory(createSubCategoryDto: CreateSubCategoryDto): Promise<SubCategory> {
