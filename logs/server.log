@@ -1,54 +1,25 @@
 {
-  message: 'Mon Aug 21 2023 12:09:05 GMT+0530 (India Standard Time):/assets?subcategory=1&status=Allocated:GET',
+  message: 'Mon Aug 21 2023 17:05:39 GMT+0530 (India Standard Time):/assets/employee/2:GET',
   level: 'info'
 }
 { message: 'message:jwt expired ', level: 'error' }
 {
-  message: 'Mon Aug 21 2023 12:09:08 GMT+0530 (India Standard Time):/employees/login:POST',
+  message: 'Mon Aug 21 2023 17:05:51 GMT+0530 (India Standard Time):/employees/login:POST',
   level: 'info'
 }
-{ message: 'Logged in User kkk', level: 'info' }
+{ message: 'Logged in User Javed', level: 'info' }
 {
-  message: 'Mon Aug 21 2023 12:09:12 GMT+0530 (India Standard Time):/requests:GET',
+  message: 'Mon Aug 21 2023 17:06:06 GMT+0530 (India Standard Time):/assets/employee/2:GET',
   level: 'info'
 }
-{ message: 'Recieved All Requests', level: 'info' }
+{ message: 'Received Assets', level: 'info' }
 {
-  message: 'Mon Aug 21 2023 12:09:21 GMT+0530 (India Standard Time):/assets?subcategory=1&status=Allocated:GET',
+  message: 'Mon Aug 21 2023 17:09:34 GMT+0530 (India Standard Time):/assets:GET',
   level: 'info'
 }
 { message: 'Received All Assets', level: 'info' }
 {
-  message: 'Mon Aug 21 2023 12:09:35 GMT+0530 (India Standard Time):/assets?subcategory=1&status=Unallocated:GET',
+  message: 'Mon Aug 21 2023 17:12:54 GMT+0530 (India Standard Time):/assets/employee/2:GET',
   level: 'info'
 }
-{ message: 'Received All Assets', level: 'info' }
-{
-  message: 'Mon Aug 21 2023 12:09:53 GMT+0530 (India Standard Time):/assets:GET',
-  level: 'info'
-}
-{
-  message: 'Mon Aug 21 2023 12:12:19 GMT+0530 (India Standard Time):/assets:GET',
-  level: 'info'
-}
-{ message: 'Received All Assets', level: 'info' }
-{
-  message: 'Mon Aug 21 2023 12:14:17 GMT+0530 (India Standard Time):/assets:GET',
-  level: 'info'
-}
-{ message: 'Received All Assets', level: 'info' }
-{
-  message: 'Mon Aug 21 2023 12:14:36 GMT+0530 (India Standard Time):/assets?status=Unallocated:GET',
-  level: 'info'
-}
-{ message: 'Received All Assets', level: 'info' }
-{
-  message: 'Mon Aug 21 2023 12:14:44 GMT+0530 (India Standard Time):/assets?status=Allocated:GET',
-  level: 'info'
-}
-{ message: 'Received All Assets', level: 'info' }
-{
-  message: 'Mon Aug 21 2023 12:14:56 GMT+0530 (India Standard Time):/assets?status=Allocated&subcategory=2:GET',
-  level: 'info'
-}
-{ message: 'Received All Assets', level: 'info' }
+{ message: 'Received Assets', level: 'info' }
