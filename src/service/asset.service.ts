@@ -8,7 +8,7 @@ import AssetRepository from "../repository/asset.repository";
 import bcrypt from "bcrypt";
 import jsonwebtoken from "jsonwebtoken";
 import CategoryRepository from "../repository/category.repository";
-
+import { In } from "typeorm";
 class AssetService {
   constructor(
     private assetRepository: AssetRepository,
@@ -21,26 +21,25 @@ class AssetService {
     pageLength: number,
     subcategory: number,
     status: string,
-    category: string
+    category: number
   ): Promise<[Asset[], number]> {
     const filter = {};
     if (subcategory) filter["subcategoryId"] = subcategory;
     if (status != "undefined") filter["status"] = status;
     // if category is not undefined then we need to fetch all subcategories of that category and fetch all the assets of those subcategories
-    if (category != "undefined") {
+    if (category) {
       const subcategoryFilter = {};
       // subcategoryFilter["categoryId"] = category;
       this.subCategoryRepository
         .findAllSubcategory(0, 100)
-        .then((subcategories) => {
-          const subcategoryIds = subcategories[0].map((subcategory) => {
-            return subcategory.id;
+        .then(([subcategories]) => {
+          const subcategoryIds = subcategories.map((subcategory) => {
+            return Number(subcategory.id);
           });
-          filter["subcategoryId"] = subcategoryIds;
+          filter["subcategoryId"] = In(subcategoryIds);
           return this.assetRepository.findAllAssets(offset, pageLength, filter);
         });
     }
-
     return this.assetRepository.findAllAssets(offset, pageLength, filter);
   }
 

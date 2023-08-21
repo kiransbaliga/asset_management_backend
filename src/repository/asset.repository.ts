@@ -2,7 +2,7 @@ import { DataSource, Repository } from "typeorm";
 import dataSource from "../db/postgres.db";
 import Asset from "../entity/assets.entity";
 import { AssetStatus } from "../utils/assetStatus.enum";
-
+import { In } from 'typeorm';
 class AssetRepository {
   private dataSource: DataSource;
 
