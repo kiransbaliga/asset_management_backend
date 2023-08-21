@@ -24,22 +24,16 @@ class AssetController {
   constructor(private assetService: AssetService) {
     this.router = express.Router();
 
+   
+
     this.router.get("/", authenticate, this.getAllAssets);
+    this.router.get("/employee/:id", authenticate, this.getAssetByEmployeeId);
+    this.router.get("/subcategory/:id", authenticate, this.getAssetBySubCategoryId);
     this.router.get("/:id", authenticate, this.getAssetById);
-    this.router.post("/", this.createAsset);
     this.router.post("/upload", upload.single("file"), this.createBatchAsset);
-    this.router.delete(
-      "/:id",
-      authenticate,
-      authorize([Role.Admin]),
-      this.deleteAsset
-    );
-    this.router.patch(
-      "/:id",
-      authenticate,
-      authorize([Role.Admin]),
-      this.updateAssetField
-    );
+    this.router.post("/", this.createAsset);
+    this.router.delete("/:id", authenticate, authorize([Role.Admin]), this.deleteAsset);
+    this.router.patch("/:id", authenticate, authorize([Role.Admin]), this.updateAssetField);
   }
 
   getAllAssets = async (

@@ -23,12 +23,12 @@ class AssetService {
     return asset;
   }
 
-  async getAssetByDepartmentId(subcategory_id: number): Promise<Asset | null> {
-    const asset = await this.assetRepository.findAssetBySubCategoryId(
-      subcategory_id
-    );
-    return asset;
-  }
+  // async getAssetByDepartmentId(subcategory_id: number): Promise<Asset | null> {
+  //   const asset = await this.assetRepository.findAssetBySubCategoryId(
+  //     subcategory_id
+  //   );
+  //   return asset;
+  // }
 
 
     async getAssetBySubCategoryId(subcategory_id: number): Promise<[Asset[],number]> {
