@@ -28,7 +28,7 @@ class RequestRepository {
   }
   findRequestItemById(id: number): Promise<RequestItem> {
     return this.requestItemRepository.findOne({
-      where: { id: id },
+      where: { requestId: id },
     });
   }
   findAllRequestItemsByRequestId(id: number): Promise<RequestItem[]> {
