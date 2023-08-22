@@ -97,8 +97,7 @@ class RequestService {
         throw new HttpException(404, "Request already Resolved/rejected");
       if (!request.assetId) {
         request.status = RequestStatus.RESOLVED;
-        const requestItems =
-          await this.requestRepository.findAllRequestItemsByRequestId(id);
+        const requestItems = request.requestItem;
         requestItems.forEach(async (item) => {
           const assets =
             await this.assetRepository.findAssetsBySubcategoryIdandCount(
