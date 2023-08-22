@@ -1,1 +1,12 @@
 { message: 'message:jwt expired ', level: 'error' }
+{
+  message: 'status :404 message:History not found with id:2 ',
+  level: 'error'
+}
+{ message: 'status :400 message:Validation Errors ', level: 'error' }
+{
+  message: 'status :404 message:History not found with id:14 ',
+  level: 'error'
+}
+{ message: 'status :400 message:Validation Errors ', level: 'error' }
+{ message: 'status :400 message:Validation Errors ', level: 'error' }

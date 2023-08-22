@@ -13,6 +13,7 @@ import { requestRoute } from "./route/request.route";
 import categoryRoute from "./route/catgeory.route";
 import { subcategoryRoute } from "./route/subcategory.route";
 import { assetRoute } from "./route/asset.route";
+import { historyRoute } from "./route/history.route";
 
 const server = express();
 server.use(cors());
@@ -25,6 +26,7 @@ server.use("/requests", requestRoute);
 server.use('/category',categoryRoute);
 server.use('/subcategory',subcategoryRoute);
 server.use('/assets',assetRoute);
+server.use('/history',historyRoute);
 server.get('/',(req,res) => {
     console.log(req.url);
     res.status(200).send("Hello world typescript");

@@ -2,7 +2,7 @@ import { DataSource, Repository } from "typeorm";
 import dataSource from "../db/postgres.db";
 import Asset from "../entity/assets.entity";
 import { AssetStatus } from "../utils/assetStatus.enum";
-import { In } from 'typeorm';
+import { In } from "typeorm";
 class AssetRepository {
   private dataSource: DataSource;
 
@@ -24,6 +24,10 @@ class AssetRepository {
   findAssetById(id: number): Promise<Asset> {
     return this.assetRepository.findOne({
       where: { id: id },
+      relations: {
+        history: true,
+        employee: true,
+      },
     });
   }
 
