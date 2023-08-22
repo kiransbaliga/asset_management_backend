@@ -7,11 +7,13 @@ import UpdateRequestDto from "../dto/update-request.dto";
 import { RequestStatus } from "../utils/requestStatus.enum";
 import { AssetStatus } from "../utils/assetStatus.enum";
 import AssetRepository from "../repository/asset.repository";
+import HistoryService from "./history.service";
 
 class RequestService {
   constructor(
     private requestRepository: RequestRepository,
-    private assetRepository: AssetRepository
+    private assetRepository: AssetRepository,
+    private historyService:HistoryService
   ) {}
 
   getAllRequests(
@@ -108,6 +110,9 @@ class RequestService {
           asset.employeeId = request.employeeId;
           asset.status = AssetStatus.ALLOCATED;
           await this.assetRepository.updateAssetById(asset);
+          await this.historyService.createHistory(asset.id,asset.employeeId,(Date.now()))
+          
+
         });
       });
     } else {
@@ -128,6 +133,11 @@ class RequestService {
       newAsset.status = AssetStatus.ALLOCATED;
       await this.assetRepository.updateAssetById(current_asset);
       await this.assetRepository.updateAssetById(newAsset);
+      const history=await this.historyService.getHistoryByAssetId(current_asset.id);
+      await this.historyService.updateHistoryById(history.id,null,current_asset.id,null,(Date.now()));
+
+     
+      await this.historyService.createHistory(newAsset.id,newAsset.employeeId,(Date.now()))
     }
     return this.requestRepository.updateRequestById(request);
   }

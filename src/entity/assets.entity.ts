@@ -4,6 +4,7 @@ import { AssetStatus } from "../utils/assetStatus.enum";
 import Employee from "./employee.entity";
 import SubCategory from "./subCategory.entity";
 import Request from "./request.entity";
+import History from "./history.entity";
 
 @Entity("assets")
 class Asset extends AbstractEntity {
@@ -30,6 +31,9 @@ class Asset extends AbstractEntity {
 
   @OneToMany(() => Request, (request) => request.asset)
   request: Request;
+
+  @OneToMany(() => History, (history) => history.asset)
+  history: History;
 
   @Column({ default: AssetStatus.UNALLOCATED })
   status: AssetStatus;
