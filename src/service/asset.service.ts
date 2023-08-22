@@ -103,6 +103,7 @@ class AssetService {
     asset.serial_no = updateAssetDto.serial_no;
     asset.subcategoryId = updateAssetDto.subcategoryId;
     asset.status = updateAssetDto.status;
+    asset.employee = null;
     asset.employeeId =
       updateAssetDto.status != AssetStatus.UNALLOCATED
         ? updateAssetDto.employeeId

@@ -11,6 +11,7 @@ import { Role } from "../utils/role.enum";
 import SetEmployeeDto from "../dto/set-employee.dto";
 import createResponse from "../utils/createResponse";
 import logger from "../utils/winston.logger";
+import { RequestWithUser } from "../utils/requestWithUser";
 
 class EmployeeController {
   public router: express.Router;
@@ -40,7 +41,22 @@ class EmployeeController {
     );
     this.router.patch("/:id", this.updateEmployeeField);
     this.router.post("/login", this.loginEmployee);
+    this.router.get("/me", authenticate, this.getEmployeeByToken);
   }
+  getEmployeeByToken = async (
+    req: express.Request,
+    res: express.Response,
+    next: NextFunction
+  ) => {
+    try {
+      const employee = await this.employeeService.getEmployeeById(Number(req.params.id));
+      res.status(200).send(createResponse(employee, "0K", null, 1));
+      logger.info(`Recieved Department with id ${employee.id}`);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   getAllEmployees = async (
     req: express.Request,
     res: express.Response,
