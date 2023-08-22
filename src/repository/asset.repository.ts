@@ -18,6 +18,9 @@ class AssetRepository {
       skip: offset * pageLength,
       take: pageLength,
       select: ["subcategory"],
+      relations:{
+        subcategory:true,
+      }
     });
   }
 
