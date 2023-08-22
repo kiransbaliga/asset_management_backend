@@ -36,14 +36,23 @@ class SubCategoryService {
         const subcategory = new SubCategory();
         subcategory.name = createSubCategoryDto.name;
         subcategory.categoryId=createSubCategoryDto.categoryId;
+        subcategory.perishable=createSubCategoryDto.perishable;
+        if(subcategory.perishable)
+        subcategory.count=createSubCategoryDto.count;
+
+
         return this.subcategoryRepository.createSubcategory(subcategory);
     }
 
    
-    async updateSubCategoryFieldById(id: number, updateSubCategoryDto: SetSubCategoryDto): Promise<SubCategory> {
+    async updateSubCategoryFieldById(id: number, updateSubCategoryDto: SetSubCategoryDto,count=-1): Promise<SubCategory> {
         const subcategory = await this.subcategoryRepository.findSubcategoryById(id);
         subcategory.name = updateSubCategoryDto.name;
         subcategory.categoryId=updateSubCategoryDto.categoryId;
+        if(subcategory.perishable&&count!=-1)
+        {
+            subcategory.count=subcategory.count-count;
+        }
         return this.subcategoryRepository.updateSubcategoryById(subcategory);
     }
 

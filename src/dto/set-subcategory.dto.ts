@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString, ValidateIf } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsNumber, IsString, ValidateIf } from "class-validator";
 
 class SetSubCategoryDto {
     @ValidateIf((obj) => obj.value !== undefined)
@@ -8,6 +8,15 @@ class SetSubCategoryDto {
     @ValidateIf((obj) => obj.value !== undefined)
     @IsNumber()
     categoryId:number;
+
+    @ValidateIf((obj) => obj.value !== undefined)
+    @IsNumber()
+    count:number;
+
+
+    @ValidateIf((obj) => obj.value !== undefined)
+    @IsBoolean()
+    perishable:boolean;
     
 }
 

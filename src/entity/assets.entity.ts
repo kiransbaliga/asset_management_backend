@@ -37,6 +37,8 @@ class Asset extends AbstractEntity {
 
   @Column({ default: AssetStatus.UNALLOCATED })
   status: AssetStatus;
+
+
 }
 
 export default Asset;

@@ -12,6 +12,12 @@ class SubCategory extends AbstractEntity {
   @OneToMany(() => Asset, (asset) => asset.subcategory)
   asset: Asset;
 
+  @Column({nullable:true})
+  count:number;
+
+  @Column({nullable:true})
+  perishable:boolean;
+
 
   @ManyToOne(() => Category, (category) => category.subcategory)
   @JoinColumn()

@@ -8,6 +8,15 @@ class CreateSubCategoryDto {
     @IsNotEmpty()
     @IsNumber()
     categoryId:number;
+
+  
+
+    count:number;
+
+     
+    perishable:boolean;
+
+
 }
 
 export default CreateSubCategoryDto;

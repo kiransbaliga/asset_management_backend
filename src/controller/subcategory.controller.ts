@@ -81,11 +81,13 @@ class SubCategoryController {
         try {
             const id = Number(req.params.id);
             const setSubCategoryDto = plainToInstance(SetSubCategoryDto, req.body);
+            const count = req.body.count? Number(req.body.count) : -1;
             const errors = await validate(setSubCategoryDto);
             if (errors.length > 0) {
                 throw new ValidationException(400, "Validation Errors", errors);
             }
-            const subcategory = await this.subcategoryService.updateSubCategoryFieldById(id, setSubCategoryDto);
+
+            const subcategory = await this.subcategoryService.updateSubCategoryFieldById(id, setSubCategoryDto,count);
             res.status(201).send(createResponse(subcategory, "OK", null, 1));
             logger.info(`Updated Subcategory with id ${subcategory.id}`);
         } catch (error) {
