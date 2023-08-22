@@ -22,6 +22,7 @@ class RequestService {
     status: string
   ): Promise<[Request[], number]> {
     const filter = {};
+    
     if (status != "undefined") filter["status"] = status;
     return this.requestRepository.findAllRequests(offset, pageLength, filter);
   }
@@ -91,6 +92,7 @@ class RequestService {
   }
 
   async resolveRequestById(id: number): Promise<Request> {
+
     const request = await this.requestRepository.findRequestById(id);
     if (request.status != RequestStatus.PENDING)
       throw new HttpException(404, "Request already Resolved/rejected");
@@ -113,33 +115,36 @@ class RequestService {
           await this.historyService.createHistory(asset.id,asset.employeeId)
           
 
+
         });
-      });
-    } else {
-      request.status = RequestStatus.RESOLVED;
-      const current_asset = await this.assetRepository.findAssetById(
-        request.assetId
-      );
-      console.log(current_asset);
-      const [newAsset] =
-        await this.assetRepository.findAssetsBySubcategoryIdandCount(
-          current_asset.subcategoryId,
-          1
+      } else {
+        //exchange request
+        request.status = RequestStatus.RESOLVED;
+        const current_asset = await this.assetRepository.findAssetById(
+          request.assetId
         );
-      console.log(newAsset);
-      current_asset.employeeId = null;
-      current_asset.status = AssetStatus.UNALLOCATED;
-      newAsset.employeeId = request.employeeId;
-      newAsset.status = AssetStatus.ALLOCATED;
-      await this.assetRepository.updateAssetById(current_asset);
-      await this.assetRepository.updateAssetById(newAsset);
+
+       
+        const [newAsset] =
+          await this.assetRepository.findAssetsBySubcategoryIdandCount(
+            current_asset.subcategoryId,
+            1
+          );
+        console.log(newAsset);
+        current_asset.employeeId = null;
+        current_asset.status = AssetStatus.UNALLOCATED;
+        newAsset.employeeId = request.employeeId;
+        newAsset.status = AssetStatus.ALLOCATED;
+        await this.assetRepository.updateAssetById(current_asset);
+        await this.assetRepository.updateAssetById(newAsset);
       const history=await this.historyService.getHistoryByAssetId(current_asset.id);
       await this.historyService.updateHistoryById(history.id,current_asset.id);
+      }
+      return this.requestRepository.updateRequestById(request);
+    } catch (e) {
+      throw new HttpException(404, "Not enough assets to be assigned");
 
-     
-      await this.historyService.createHistory(newAsset.id,newAsset.employeeId)
     }
-    return this.requestRepository.updateRequestById(request);
   }
 }
 

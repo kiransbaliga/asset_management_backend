@@ -137,9 +137,10 @@ class EmployeeService {
       name: employee.name,
       username: employee.username,
       role: employee.role,
+      id: employee.id
     };
     const token = jsonwebtoken.sign(payload, process.env.JWT_SECRET_KEY, {
-      expiresIn: "1h",
+      expiresIn: "24h",
     });
 
     return { token: token };

@@ -16,7 +16,7 @@ class AssetService {
     private subCategoryRepository: SubCategoryRepository
   ) {}
 
-  getAllAssets(
+  async getAllAssets(
     offset: number,
     pageLength: number,
     subcategory: number,
@@ -30,14 +30,14 @@ class AssetService {
     if (category) {
       const subcategoryFilter = {};
       // subcategoryFilter["categoryId"] = category;
-      this.subCategoryRepository
-        .findAllSubcategory(0, 100)
-        .then(([subcategories]) => {
+      await this.subCategoryRepository
+        .findSubcategoryByCategoryId(category)
+        .then(async ([subcategories,count]) => {
           const subcategoryIds = subcategories.map((subcategory) => {
             return Number(subcategory.id);
           });
           filter["subcategoryId"] = In(subcategoryIds);
-          return this.assetRepository.findAllAssets(offset, pageLength, filter);
+          return await this.assetRepository.findAllAssets(offset, pageLength, filter);
         });
     }
     return this.assetRepository.findAllAssets(offset, pageLength, filter);
