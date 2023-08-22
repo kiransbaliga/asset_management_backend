@@ -26,16 +26,19 @@ class RequestRepository {
   findRequestById(id: number): Promise<Request> {
     return this.requestRepository.findOne({
       where: { id: id },
+      relations: ["employee", "asset", "requestItem"],
     });
   }
   findRequestItemById(id: number): Promise<RequestItem> {
     return this.requestItemRepository.findOne({
       where: { requestId: id },
+      relations: ["employee", "asset", "requestItem"],
     });
   }
   findAllRequestItemsByRequestId(id: number): Promise<RequestItem[]> {
     return this.requestItemRepository.find({
       where: { requestId: id },
+      relations: ["employee", "asset", "requestItem"],
     });
   }
   createRequest(newRequest: Request): Promise<Request> {
