@@ -32,7 +32,10 @@ class RequestRepository {
   findRequestItemById(id: number): Promise<RequestItem> {
     return this.requestItemRepository.findOne({
       where: { requestId: id },
-      relations: ["employee", "asset", "requestItem"],
+      relations: {
+        request: true,
+        subcategory: true,
+      }
     });
   }
   findAllRequestItemsByRequestId(id: number): Promise<RequestItem[]> {

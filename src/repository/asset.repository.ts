@@ -27,6 +27,7 @@ class AssetRepository {
       relations: {
         history: true,
         employee: true,
+        subcategory:true,
       },
     });
   }
