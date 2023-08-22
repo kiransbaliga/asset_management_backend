@@ -19,6 +19,7 @@ class EmployeeController {
   constructor(private employeeService: EmployeeService) {
     this.router = express.Router();
 
+    this.router.get("/me", authenticate, this.getMe);
     this.router.get("/", authenticate, this.getAllEmployees);
     this.router.get("/:id", authenticate, this.getEmployeeById);
     this.router.post(
@@ -41,15 +42,19 @@ class EmployeeController {
     );
     this.router.patch("/:id", this.updateEmployeeField);
     this.router.post("/login", this.loginEmployee);
-    this.router.get("/me", authenticate, this.getEmployeeByToken);
   }
-  getEmployeeByToken = async (
+
+  getMe = async (
     req: express.Request,
     res: express.Response,
     next: NextFunction
   ) => {
     try {
-      const employee = await this.employeeService.getEmployeeById(Number(req.params.id));
+      console.log("hi");
+      console.log(req.params.userid);
+      const employee = await this.employeeService.getEmployeeById(
+        Number(req.params.userid)
+      );
       res.status(200).send(createResponse(employee, "0K", null, 1));
       logger.info(`Recieved Department with id ${employee.id}`);
     } catch (error) {

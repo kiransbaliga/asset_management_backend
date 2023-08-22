@@ -17,7 +17,7 @@ const authenticate = async (
     req.name = payload.name;
     req.email = payload.email;
     req.role = payload.role;
-    req.params.id = String(payload.id);
+    req.params.userid = String(payload.id);
     next();
   } catch (error) {
     next(error);
