@@ -19,7 +19,7 @@ class AssetRepository {
       take: pageLength,
       select: ["subcategory"],
       relations:{
-        subcategory:true,
+        subcategory:true
       }
     });
   }

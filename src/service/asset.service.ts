@@ -9,6 +9,7 @@ import bcrypt from "bcrypt";
 import jsonwebtoken from "jsonwebtoken";
 import CategoryRepository from "../repository/category.repository";
 import { In } from "typeorm";
+import { AssetStatus } from "../utils/assetStatus.enum";
 class AssetService {
   constructor(
     private assetRepository: AssetRepository,
@@ -32,12 +33,16 @@ class AssetService {
       // subcategoryFilter["categoryId"] = category;
       await this.subCategoryRepository
         .findSubcategoryByCategoryId(category)
-        .then(async ([subcategories,count]) => {
+        .then(async ([subcategories, count]) => {
           const subcategoryIds = subcategories.map((subcategory) => {
             return Number(subcategory.id);
           });
           filter["subcategoryId"] = In(subcategoryIds);
-          return await this.assetRepository.findAllAssets(offset, pageLength, filter);
+          return await this.assetRepository.findAllAssets(
+            offset,
+            pageLength,
+            filter
+          );
         });
     }
     return this.assetRepository.findAllAssets(offset, pageLength, filter);
@@ -98,7 +103,10 @@ class AssetService {
     asset.serial_no = updateAssetDto.serial_no;
     asset.subcategoryId = updateAssetDto.subcategoryId;
     asset.status = updateAssetDto.status;
-    asset.employeeId = updateAssetDto.employeeId;
+    asset.employeeId =
+      updateAssetDto.status != AssetStatus.UNALLOCATED
+        ? updateAssetDto.employeeId
+        : null;
     return this.assetRepository.updateAssetById(asset);
   }
 
