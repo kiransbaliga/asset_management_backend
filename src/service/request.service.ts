@@ -20,6 +20,7 @@ class RequestService {
     status: string
   ): Promise<[Request[], number]> {
     const filter = {};
+    
     if (status != "undefined") filter["status"] = status;
     return this.requestRepository.findAllRequests(offset, pageLength, filter);
   }
@@ -94,6 +95,7 @@ class RequestService {
       if (request.status != RequestStatus.PENDING)
         throw new HttpException(404, "Request already Resolved/rejected");
       if (!request.assetId) {
+        // requestt for new resource
         request.status = RequestStatus.RESOLVED;
         const requestItems =
           await this.requestRepository.findAllRequestItemsByRequestId(id);
@@ -112,6 +114,7 @@ class RequestService {
           });
         });
       } else {
+        //exchange request
         request.status = RequestStatus.RESOLVED;
         const current_asset = await this.assetRepository.findAssetById(
           request.assetId
