@@ -89,47 +89,51 @@ class RequestService {
   }
 
   async resolveRequestById(id: number): Promise<Request> {
-    const request = await this.requestRepository.findRequestById(id);
-    if (request.status != RequestStatus.PENDING)
-      throw new HttpException(404, "Request already Resolved/rejected");
-    if (!request.assetId) {
-      request.status = RequestStatus.RESOLVED;
-      const requestItems =
-        await this.requestRepository.findAllRequestItemsByRequestId(id);
-      requestItems.forEach(async (item) => {
-        const assets =
-          await this.assetRepository.findAssetsBySubcategoryIdandCount(
-            item.subcategoryId,
-            item.count
-          );
-        if (assets.length <= 0)
-          throw new HttpException(404, "Not enough assets to b assigned");
-        assets.forEach(async (asset) => {
-          asset.employeeId = request.employeeId;
-          asset.status = AssetStatus.ALLOCATED;
-          await this.assetRepository.updateAssetById(asset);
+    try {
+      const request = await this.requestRepository.findRequestById(id);
+      if (request.status != RequestStatus.PENDING)
+        throw new HttpException(404, "Request already Resolved/rejected");
+      if (!request.assetId) {
+        request.status = RequestStatus.RESOLVED;
+        const requestItems =
+          await this.requestRepository.findAllRequestItemsByRequestId(id);
+        requestItems.forEach(async (item) => {
+          const assets =
+            await this.assetRepository.findAssetsBySubcategoryIdandCount(
+              item.subcategoryId,
+              item.count
+            );
+          if (assets.length <= 0)
+            throw new HttpException(404, "Not enough assets to b assigned");
+          assets.forEach(async (asset) => {
+            asset.employeeId = request.employeeId;
+            asset.status = AssetStatus.ALLOCATED;
+            await this.assetRepository.updateAssetById(asset);
+          });
         });
-      });
-    } else {
-      request.status = RequestStatus.RESOLVED;
-      const current_asset = await this.assetRepository.findAssetById(
-        request.assetId
-      );
-      console.log(current_asset);
-      const [newAsset] =
-        await this.assetRepository.findAssetsBySubcategoryIdandCount(
-          current_asset.subcategoryId,
-          1
+      } else {
+        request.status = RequestStatus.RESOLVED;
+        const current_asset = await this.assetRepository.findAssetById(
+          request.assetId
         );
-      console.log(newAsset);
-      current_asset.employeeId = null;
-      current_asset.status = AssetStatus.UNALLOCATED;
-      newAsset.employeeId = request.employeeId;
-      newAsset.status = AssetStatus.ALLOCATED;
-      await this.assetRepository.updateAssetById(current_asset);
-      await this.assetRepository.updateAssetById(newAsset);
+        console.log(current_asset);
+        const [newAsset] =
+          await this.assetRepository.findAssetsBySubcategoryIdandCount(
+            current_asset.subcategoryId,
+            1
+          );
+        console.log(newAsset);
+        current_asset.employeeId = null;
+        current_asset.status = AssetStatus.UNALLOCATED;
+        newAsset.employeeId = request.employeeId;
+        newAsset.status = AssetStatus.ALLOCATED;
+        await this.assetRepository.updateAssetById(current_asset);
+        await this.assetRepository.updateAssetById(newAsset);
+      }
+      return this.requestRepository.updateRequestById(request);
+    } catch (e) {
+      throw new HttpException(404, "Not enough assets to be assigned");
     }
-    return this.requestRepository.updateRequestById(request);
   }
 }
 
