@@ -22,7 +22,7 @@ class HistoryService {
   }
 
   async getHistoryByAssetId(assetId: number): Promise<History | null> {
-    const history = await this.historyRepository.findHistoryById(assetId);
+    const history = await this.historyRepository.findHistoryByAssetId(assetId);
     if (!history) {
       throw new HttpException(404, `History not found with id:${assetId}`);
     }
@@ -39,30 +39,26 @@ class HistoryService {
 
 
   async createHistory(
-    assetId:number,employeeId:number,startDate:number
+    assetId:number,employeeId:number
   ): Promise<History> {
     const history = new History();
     // Assuming properties like 'name' exist in CreateHistoryDto
     history.employeeId = employeeId;
     history.assetId = assetId;
-    history.startDate =startDate;
+  
     return this.historyRepository.createHistory(history);
   }
 
   async updateHistoryById(
     id: number,
-    employeeId:number,
-    assetId:number,
-    startDate:number,
-    endDate:number
+    assetId:number
   ): Promise<History> {
     const history = await this.historyRepository.findHistoryById(id);
     
-    history.employeeId = employeeId;
+    // history.employeeId = employeeId;
     history.assetId = assetId;
-    history.startDate=startDate;
-    history.endDate=endDate;
-
+    history.flag=history.flag+1;
+    console.log(history.id)
     return this.historyRepository.updateHistoryById(history);
   }
 

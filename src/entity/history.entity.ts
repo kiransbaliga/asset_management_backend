@@ -23,12 +23,9 @@ class History extends AbstractEntity {
   @Column()
   assetId: number;
 
-  @Column()
-  startDate: number;
 
-  @Column({ nullable: true })
-  endDate: number;
-
+  @Column({default:0})
+  flag: number;
   
 
 }

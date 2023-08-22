@@ -84,7 +84,7 @@ class HistoryController {
         throw new ValidationException(400, "Validation Errors", errors);
       } else {
         const historyItem = await this.historyService.createHistory(
-          createHistoryDto.assetId,createHistoryDto.employeeId,createHistoryDto.startDate
+          createHistoryDto.assetId,createHistoryDto.employeeId
         );
 
         res.status(201).send(createResponse(historyItem, "OK", null, 1));
@@ -112,7 +112,7 @@ class HistoryController {
 
       const historyItem = await this.historyService.updateHistoryById(
         id,
-        updateHistoryDto.assetId,updateHistoryDto.employeeId,updateHistoryDto.startDate,updateHistoryDto.endDate
+        updateHistoryDto.assetId
       );
       res.status(201).send(createResponse(historyItem, "OK", null, 1));
       logger.info(`Updated History item with id ${historyItem.id}`);

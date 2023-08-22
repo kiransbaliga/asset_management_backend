@@ -25,7 +25,7 @@ class HistoryRepository {
     async findHistoryByAssetId(asset_id: number): Promise<History> {
         const history= await this.historyRepository.find({
             where: { assetId: asset_id },
-            order: { startDate: "DESC" },
+            order: { createdAt: "DESC" },
             skip:0,
             take:1,
             

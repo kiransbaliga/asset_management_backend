@@ -19,10 +19,6 @@ import {
     @IsNumber()
     assetId: number;
 
-    @IsNotEmpty()
-    @IsNumber()
-    startDate: number;
-
 
   
   }

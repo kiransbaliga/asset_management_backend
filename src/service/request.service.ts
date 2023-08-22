@@ -66,7 +66,7 @@ class RequestService {
     updateRequestDto: UpdateRequestDto
   ): Promise<Request> {
     const request = await this.requestRepository.findRequestById(id);
-    request.assetId = updateRequestDto.assetId;
+    // request.assetId = updateRequestDto.assetId;
     request.reason = updateRequestDto.reason;
     request.employeeId = updateRequestDto.employeeId;
     request.status = updateRequestDto.status;
@@ -110,7 +110,7 @@ class RequestService {
           asset.employeeId = request.employeeId;
           asset.status = AssetStatus.ALLOCATED;
           await this.assetRepository.updateAssetById(asset);
-          await this.historyService.createHistory(asset.id,asset.employeeId,(Date.now()))
+          await this.historyService.createHistory(asset.id,asset.employeeId)
           
 
         });
@@ -134,10 +134,10 @@ class RequestService {
       await this.assetRepository.updateAssetById(current_asset);
       await this.assetRepository.updateAssetById(newAsset);
       const history=await this.historyService.getHistoryByAssetId(current_asset.id);
-      await this.historyService.updateHistoryById(history.id,null,current_asset.id,null,(Date.now()));
+      await this.historyService.updateHistoryById(history.id,current_asset.id);
 
      
-      await this.historyService.createHistory(newAsset.id,newAsset.employeeId,(Date.now()))
+      await this.historyService.createHistory(newAsset.id,newAsset.employeeId)
     }
     return this.requestRepository.updateRequestById(request);
   }
