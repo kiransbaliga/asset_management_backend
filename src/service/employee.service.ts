@@ -143,7 +143,7 @@ class EmployeeService {
       expiresIn: "24h",
     });
 
-    return { token: token };
+    return { token: token, employee: employee };
   };
 }
 

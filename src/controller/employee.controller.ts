@@ -166,11 +166,11 @@ class EmployeeController {
   ) => {
     const { username, password } = req.body;
     try {
-      const token = await this.employeeService.loginEmployee(
+      const response = await this.employeeService.loginEmployee(
         username,
         password
       );
-      res.status(200).send(createResponse(token, "OK", null, 1));
+      res.status(200).send(createResponse(response, "OK", null, 1));
       logger.info(`Logged in User ${username}`);
     } catch (error) {
       next(error);
