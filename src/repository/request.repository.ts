@@ -26,7 +26,13 @@ class RequestRepository {
   findRequestById(id: number): Promise<Request> {
     return this.requestRepository.findOne({
       where: { id: id },
-      relations: ["employee", "asset", "requestItem", "requestItem.subcategory","asset.subcategory"],
+      relations: [
+        "employee",
+        "asset",
+        "requestItem",
+        "requestItem.subcategory",
+        "asset.subcategory",
+      ],
     });
   }
   findRequestItemById(id: number): Promise<RequestItem> {
@@ -35,7 +41,7 @@ class RequestRepository {
       relations: {
         request: true,
         subcategory: true,
-      }
+      },
     });
   }
   findAllRequestItemsByRequestId(id: number): Promise<RequestItem[]> {
@@ -59,6 +65,13 @@ class RequestRepository {
 
   deleteRequestById(deletedRequest: Request): Promise<Request> {
     return this.requestRepository.softRemove(deletedRequest);
+  }
+
+  findRequestsByEmployeeId(id: number): Promise<Request[]> {
+    return this.requestRepository.find({
+      where: { employeeId: id },
+      relations: ["employee", "asset", "requestItem"],
+    });
   }
 }
 

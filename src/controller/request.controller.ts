@@ -19,6 +19,7 @@ class RequestController {
     this.router.put("/:id", this.updateRequest);
     this.router.delete("/:id", this.deleteRequest);
     this.router.post("/:id", this.resolveRequest);
+    this.router.get("/employee/:id", this.getRequestsByEmployeeId);
   }
   getAllRequests = async (
     req: express.Request,
@@ -124,6 +125,23 @@ class RequestController {
       const requests = await this.requestService.resolveRequestById(requestId);
       res.status(200).send(createResponse(requests, "0K", null, 1));
       logger.info(`Recieved Request with id ${requests.id}`);
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  getRequestsByEmployeeId = async (
+    req: express.Request,
+    res: express.Response,
+    next: NextFunction
+  ) => {
+    try {
+      const employeeId = Number(req.params.id);
+      const requests = await this.requestService.getRequestsByEmployeeId(
+        employeeId
+      );
+      res.status(200).send(createResponse(requests, "0K", null, 1));
+      logger.info(`Recieved Request with id ${requests}`);
     } catch (e) {
       next(e);
     }
