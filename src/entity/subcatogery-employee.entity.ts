@@ -6,7 +6,7 @@ import Employee from "./employee.entity";
 import RequestItem from "./requestItem.entity";
 import SubCategory from "./subCategory.entity";
 
-@Entity("subcatogery")
+@Entity("subcatogeryEmployee")
 class SubCategoryEmployee extends AbstractEntity {
  
 
