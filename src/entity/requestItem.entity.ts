@@ -22,6 +22,8 @@ class RequestItem extends AbstractEntity {
   @Column()
   subcategoryId: number;
 
+  @Column({ default: false })
+  isDone: boolean;
 }
 
 export default RequestItem;
