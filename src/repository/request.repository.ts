@@ -26,7 +26,7 @@ class RequestRepository {
   findRequestById(id: number): Promise<Request> {
     return this.requestRepository.findOne({
       where: { id: id },
-      relations: ["employee", "asset", "requestItem", "requestItem.subcategory"],
+      relations: ["employee", "asset", "requestItem", "requestItem.subcategory","asset.subcategory"],
     });
   }
   findRequestItemById(id: number): Promise<RequestItem> {
