@@ -8,12 +8,14 @@ import { RequestStatus } from "../utils/requestStatus.enum";
 import { AssetStatus } from "../utils/assetStatus.enum";
 import AssetRepository from "../repository/asset.repository";
 import HistoryService from "./history.service";
+import SubCategoryRepository from "../repository/subcategory.repository";
 
 class RequestService {
   constructor(
     private requestRepository: RequestRepository,
     private assetRepository: AssetRepository,
-    private historyService: HistoryService
+    private historyService: HistoryService,
+    private subcategoryRepository: SubCategoryRepository
   ) {}
 
   getAllRequests(
@@ -99,19 +101,38 @@ class RequestService {
         request.status = RequestStatus.RESOLVED;
         const requestItems = request.requestItem;
         requestItems.forEach(async (item) => {
-          const assets =
-            await this.assetRepository.findAssetsBySubcategoryIdandCount(
-              item.subcategoryId,
-              item.count
+          const currentSubcategory =
+            await this.subcategoryRepository.findSubcategoryById(
+              item.subcategoryId
             );
-          if (assets.length <= 0)
-            throw new HttpException(404, "Not enough assets to be assigned");
-          assets.forEach(async (asset) => {
-            asset.employeeId = request.employeeId;
-            asset.status = AssetStatus.ALLOCATED;
-            await this.assetRepository.updateAssetById(asset);
-            await this.historyService.createHistory(asset.id, asset.employeeId);
-          });
+          if (currentSubcategory.perishable) {
+            // perishable logic
+
+            currentSubcategory.count = currentSubcategory.count - item.count;
+            await this.subcategoryRepository.updateSubcategoryById(
+              currentSubcategory
+            );
+          } else {
+            const assets =
+              await this.assetRepository.findAssetsBySubcategoryIdandCount(
+                item.subcategoryId,
+                item.count
+              );
+            if (assets.length <= 0)
+              throw new HttpException(
+                404,
+                `Not enough assets to be assigned with of subcategory id:${item.subcategoryId}`
+              );
+            assets.forEach(async (asset) => {
+              asset.employeeId = request.employeeId;
+              asset.status = AssetStatus.ALLOCATED;
+              await this.assetRepository.updateAssetById(asset);
+              await this.historyService.createHistory(
+                asset.id,
+                asset.employeeId
+              );
+            });
+          }
         });
       } else {
         request.status = RequestStatus.RESOLVED;
