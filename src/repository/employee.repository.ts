@@ -21,7 +21,7 @@ class EmployeeRepository {
   findEmployeeById(id: number): Promise<Employee> {
     return this.employeeRepository.findOne({
       where: { id: id },
-      relations: ["address","subcatogeryEmployee","subcatogeryEmployee.subcategory"],
+      relations: ["address"],
     });
   }
   findEmployeeByDepartmentId(department_id: number): Promise<Employee> {

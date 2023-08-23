@@ -43,7 +43,7 @@ class SubCategoryController {
     getSubcategoryByEmployeeId = async (req: express.Request, res: express.Response, next: NextFunction) => {
         try {
             const employeeId = Number(req.params.id);
-            const [subcategory,total] = await this.subcategoryService.getSubCategoryByCategoryId(employeeId);
+            const [subcategory,total] = await this.subcategoryService.getSubCategoryByEmployeeId(employeeId);
             res.status(200).send(createResponse(subcategory, "OK", null, total));
             logger.info(`Received subcategories`);
         } catch (error) {
