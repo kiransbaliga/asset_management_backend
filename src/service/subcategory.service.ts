@@ -3,15 +3,17 @@ import SetSubCategoryDto from "../dto/set-subcategory.dto";
 
 import Address from "../entity/address.entity";
 import SubCategory from "../entity/subCategory.entity";
+import SubCategoryEmployee from "../entity/subcatogery-employee.entity";
 import HttpException from "../exceptions/http.exception";
 import DepartmentRepository from "../repository/category.repository";
+import SubCategoryEmployeeRepository from "../repository/subcategory.employee.repository";
 import SubCategoryRepository from "../repository/subcategory.repository";
 import bcrypt from "bcrypt";
 import jsonwebtoken from "jsonwebtoken";
 
 class SubCategoryService {
     
-    constructor(private subcategoryRepository: SubCategoryRepository) {
+    constructor(private subcategoryRepository: SubCategoryRepository,private subcategoryEmployeeRepository: SubCategoryEmployeeRepository) {
 
     }
 
@@ -27,9 +29,22 @@ class SubCategoryService {
         return subcategory;
     }
 
+
+
     async getSubCategoryByCategoryId(category_id: number): Promise<[SubCategory[],number]> {
          
         return this.subcategoryRepository.findSubcategoryByCategoryId(category_id);
+    }
+    async getSubCategoryByEmployeeId(employee_id: number): Promise<[SubCategoryEmployee[],number]> {
+        try{
+            return this.subcategoryEmployeeRepository.findSubcategoryByEmployeeId(employee_id);
+        }
+        catch(e)
+        {
+            throw new HttpException(404, `SubCategory not Found with id:${employee_id}`);   
+        }
+         
+        
     }
 
     async createSubCategory(createSubCategoryDto: CreateSubCategoryDto): Promise<SubCategory> {
