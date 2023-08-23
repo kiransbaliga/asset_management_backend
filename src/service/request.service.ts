@@ -9,13 +9,18 @@ import { AssetStatus } from "../utils/assetStatus.enum";
 import AssetRepository from "../repository/asset.repository";
 import HistoryService from "./history.service";
 import SubCategoryRepository from "../repository/subcategory.repository";
+import SubCategoryEmployeeRepository from "../repository/subcategory.employee.repository";
+import { plainToInstance } from "class-transformer";
+import CreateSubCategoryEmployeeDto from "../dto/create-subcategoryemployee.dto";
+import SubCategoryEmployee from "../entity/subcatogery-employee.entity";
 
 class RequestService {
   constructor(
     private requestRepository: RequestRepository,
     private assetRepository: AssetRepository,
     private historyService: HistoryService,
-    private subcategoryRepository: SubCategoryRepository
+    private subcategoryRepository: SubCategoryRepository,
+    private subcategoryEmployeeRepository: SubCategoryEmployeeRepository,
   ) {}
 
   getAllRequests(
@@ -108,11 +113,31 @@ class RequestService {
             );
           if (currentSubcategory.perishable) {
             // perishable logic
-
+            if(currentSubcategory.count - item.count<0) 
+              throw new HttpException(
+                404,
+                `Not enough assets to be assigned with of subcategory id:${item.subcategoryId}`
+              );
             currentSubcategory.count = currentSubcategory.count - item.count;
+
             await this.subcategoryRepository.updateSubcategoryById(
               currentSubcategory
             );
+            // const createSubCategoryEmployeeDto = plainToInstance(
+            //   CreateSubCategoryEmployeeDto,
+            //   {
+            //     employeeId:request.employeeId,
+            //     subcategoryId:currentSubcategory.id,
+            //     count:item.count
+            //   }
+            // );
+            const subcategoryEmployee= new SubCategoryEmployee();
+            subcategoryEmployee.employeeId=request.employeeId
+            subcategoryEmployee.subcategoryId=currentSubcategory.id
+            subcategoryEmployee.count=item.count
+
+            await this.subcategoryEmployeeRepository.createSubcategoryEmployee(subcategoryEmployee);
+
           } else {
             const assets =
               await this.assetRepository.findAssetsBySubcategoryIdandCount(
