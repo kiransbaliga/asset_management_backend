@@ -23,6 +23,7 @@ class SubCategoryController {
         this.router.get("/", authenticate, this.getAllSubcategories);
         this.router.get("/category/:id", authenticate, this.getSubCategoryByCategoryId);
         this.router.get("/:id", authenticate, this.getSubcategoryById);
+        this.router.get("/employee/:id",this.getSubcategoryByEmployeeId);
         this.router.post("/", this.createSubcategory);
         this.router.delete("/:id", authenticate, authorize([Role.Admin]), this.deleteSubcategory);
         this.router.patch("/:id", authenticate, authorize([Role.Admin]),this.updateSubcategoryField);
@@ -35,6 +36,16 @@ class SubCategoryController {
             const [subcategories, total] = await this.subcategoryService.getAllSubCategories(offset, pageLength);
             res.status(200).send(createResponse(subcategories, "OK", null, total));
             logger.info('Received All Subcategories');
+        } catch (error) {
+            next(error);
+        }
+    }
+    getSubcategoryByEmployeeId = async (req: express.Request, res: express.Response, next: NextFunction) => {
+        try {
+            const employeeId = Number(req.params.id);
+            const [subcategory,total] = await this.subcategoryService.getSubCategoryByEmployeeId(employeeId);
+            res.status(200).send(createResponse(subcategory, "OK", null, total));
+            logger.info(`Received subcategories`);
         } catch (error) {
             next(error);
         }

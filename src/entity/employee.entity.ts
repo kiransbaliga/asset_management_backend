@@ -7,6 +7,7 @@ import { Status } from "../utils/status.enum";
 import Asset from "./assets.entity";
 import Request from "./request.entity";
 import History from "./history.entity";
+import SubCategoryEmployee from "./subcatogery-employee.entity";
 
 @Entity("employees")
 class Employee extends AbstractEntity {
@@ -47,6 +48,9 @@ class Employee extends AbstractEntity {
 
   @OneToMany(() => History, (history) => history.employee)
   history: History;
+
+  @OneToMany(() => SubCategoryEmployee, (subcategoryEmployee) => subcategoryEmployee.employee)
+  subcategoryEmployee:SubCategoryEmployee;
 
   @OneToMany(() => Request, (request) => request.employee)
   request: Request;
