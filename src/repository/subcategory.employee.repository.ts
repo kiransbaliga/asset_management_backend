@@ -16,6 +16,11 @@ class SubCategoryEmployeeRepository {
             take: pageLength,
         });
     }
+    findSubcategoryByEmployeeId(employee_id: number): Promise<[SubCategoryEmployee[],number]> {
+        return this.subcategoryEmployeeRepository.findAndCount({
+            where: { employeeId: employee_id }
+        });
+    }
 
   
     createSubcategoryEmployee(newSubCategoryEmployee: SubCategoryEmployee): Promise<SubCategoryEmployee> {

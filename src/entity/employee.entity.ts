@@ -49,7 +49,7 @@ class Employee extends AbstractEntity {
   @OneToMany(() => History, (history) => history.employee)
   history: History;
 
-  @OneToMany(() => SubCategoryEmployee, (subcategoryEmployee) => subcategoryEmployee.subcategory)
+  @OneToMany(() => SubCategoryEmployee, (subcategoryEmployee) => subcategoryEmployee.employee)
   subcategoryEmployee:SubCategoryEmployee;
 
   @OneToMany(() => Request, (request) => request.employee)
