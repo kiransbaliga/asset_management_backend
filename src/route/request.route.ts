@@ -14,6 +14,8 @@ import Employee from "../entity/employee.entity";
 import History from "../entity/history.entity";
 import SubCategory from "../entity/subCategory.entity";
 import SubCategoryRepository from "../repository/subcategory.repository";
+import SubCategoryEmployeeRepository from "../repository/subcategory.employee.repository";
+import SubCategoryEmployee from "../entity/subcatogery-employee.entity";
 
 const requestRepository = new RequestRepository(
   dataSource.getRepository(Request),
@@ -40,11 +42,15 @@ const subcategoryRepository = new SubCategoryRepository(
   dataSource.getRepository(SubCategory)
 );
 
+const subcategoryEmployeeRepository = new SubCategoryEmployeeRepository(
+  dataSource.getRepository(SubCategoryEmployee)
+);
+
 const requestService = new RequestService(
   requestRepository,
   assetRepository,
   historyService,
-  subcategoryRepository
+  subcategoryRepository,subcategoryEmployeeRepository
 );
 const requestController = new RequestController(requestService);
 const requestRoute = requestController.router;

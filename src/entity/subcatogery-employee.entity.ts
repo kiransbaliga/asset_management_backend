@@ -25,8 +25,8 @@ class SubCategoryEmployee extends AbstractEntity {
   subcategoryId: number;
 
 
-  @Column({default:0})
-  flag: number;
+  @Column()
+  count: number;
   
 
 }

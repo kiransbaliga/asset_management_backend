@@ -19,6 +19,10 @@ import {
     @IsNumber()
     assetId: number;
 
+    @IsNotEmpty()
+    @IsNumber()
+    count: number;
+
 
   
   }
