@@ -93,7 +93,7 @@ class RequestController {
         requestId,
         updateRequestDto
       );
-      res.status(200).send(createResponse(requests, "0K", null, 1));
+      res.status(200).send(createResponse(requests, "Rejected Request Successfully", null, 1));
       logger.info(`Recieved Request with id ${requests.id}`);
     } catch (e) {
       next(e);
