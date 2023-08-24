@@ -10,14 +10,14 @@ import SubCategory from "./subCategory.entity";
 class SubCategoryEmployee extends AbstractEntity {
  
 
-  @ManyToOne(() => Employee, (employee) => employee.request)
+  @ManyToOne(() => Employee, (employee) => employee.subcategoryEmployee)
   @JoinColumn()
   employee: Employee;
 
   @Column()
   employeeId: number;
 
-  @ManyToOne(() => Asset, (asset) => asset.request)
+  @ManyToOne(() => SubCategory, (subcategory) => subcategory.subcategoryEmployee)
   @JoinColumn()
   subcategory: SubCategory;
 
