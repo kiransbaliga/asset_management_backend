@@ -1,4 +1,10 @@
-import { IsEnum, IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  ValidateNested,
+} from "class-validator";
 import Address from "../entity/address.entity";
 import { Type } from "class-transformer";
 import CreateAddressDto from "./create-address.dto";
@@ -19,7 +25,6 @@ class UpdateEmployeeDto {
   @Type(() => CreateAddressDto)
   address: Address;
 
-  @IsNotEmpty()
   @IsString()
   password: string;
 
