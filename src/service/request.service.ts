@@ -157,7 +157,7 @@ class RequestService {
                 asset.id,
                 asset.employeeId
               );
-            });
+            }); 
           }
           const currentRequestItem =
             await this.requestRepository.findRequestItemById(item.id);
