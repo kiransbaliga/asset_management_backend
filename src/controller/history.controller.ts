@@ -18,6 +18,7 @@ class HistoryController {
     this.router = express.Router();
     this.router.get("/", this.getAllHistory); // Update route handler references
     this.router.get("/:id", this.getHistoryById); // Update route handler references
+    this.router.get("/assets/:id", this.getAllHistoryByAssetId);
     this.router.post(
       "/",
       // authenticate,
@@ -51,6 +52,22 @@ class HistoryController {
         await this.historyService.getAllHistory(offset, pageLength);
       res.status(200).send(createResponse(historyItems, "OK", null, total));
       logger.info("Received all history items");
+    } catch (error) {
+      next(error);
+    }
+  };
+  getAllHistoryByAssetId = async (
+    req: express.Request,
+    res: express.Response,
+    next: NextFunction
+  ) => {
+    try {
+      const assetId = Number(req.params.id);
+      const historyItem = await this.historyService.getAllHistoryByAssetId(
+        assetId
+      );
+      res.status(200).send(createResponse(historyItem, "OK", null, 1));
+      logger.info(`Received History item with id ${assetId}`);
     } catch (error) {
       next(error);
     }

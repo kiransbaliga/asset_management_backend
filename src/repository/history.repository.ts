@@ -15,6 +15,12 @@ class HistoryRepository {
             take: pageLength
         });
     }
+    findAllHistoryByAssetId(asset_id: number): Promise<History[]> {
+        return this.historyRepository.find({
+          where: { assetId: asset_id },
+          relations: ["employee"],
+        });
+      }
 
     findHistoryById(id: number): Promise<History> {
         return this.historyRepository.findOne({

@@ -28,6 +28,13 @@ class HistoryService {
     }
     return history;
   }
+  async getAllHistoryByAssetId(assetId: number): Promise<History[] | null> {
+    try {
+      return await this.historyRepository.findAllHistoryByAssetId(assetId);
+    } catch (e) {
+      throw new HttpException(404, `History not found with id:${assetId}`);
+    }
+  }
 
   async getHistoryById(id: number): Promise<History | null> {
     const history = await this.historyRepository.findHistoryById(id);
