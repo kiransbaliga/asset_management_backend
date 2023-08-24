@@ -30,7 +30,7 @@ class AssetService {
     if (subcategory) filter["subcategoryId"] = subcategory;
     if (status != "undefined") filter["status"] = status;
     // if category is not undefined then we need to fetch all subcategories of that category and fetch all the assets of those subcategories
-    if (category) {
+    if (category && !subcategory) {
       const subcategoryFilter = {};
       // subcategoryFilter["categoryId"] = category;
       await this.subCategoryRepository
