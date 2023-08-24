@@ -15,6 +15,7 @@ import CreateSubCategoryEmployeeDto from "../dto/create-subcategoryemployee.dto"
 import SubCategoryEmployee from "../entity/subcatogery-employee.entity";
 import { Http } from "winston/lib/winston/transports";
 import SubCategory from "../entity/subCategory.entity";
+import { transporter } from "./email.service";
 
 class RequestService {
   constructor(
@@ -56,6 +57,20 @@ class RequestService {
       requestItem.request = savedRequest;
       this.requestRepository.createRequestItem(requestItem);
     });
+    const mailOptions = {
+      from: "ppsukunan@outlook.com",
+      to: "kiransbaliga@gmail.com",
+      subject: "New Request",
+      text: `New Request has been created with id:${savedRequest.id}`,
+    };
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        return console.log(error);
+      }
+
+      console.log("Message sent: " + info.response);
+    });
+
     return savedRequest;
     // const requestItemArray = [];
     // createRequestDto.requestItem.forEach((item) => {
@@ -232,13 +247,41 @@ class RequestService {
         throw new HttpException(404, "Request already Resolved/rejected");
       if (!currentRequest.assetId) {
         try {
-          return await this.handleNewRequest(currentRequest);
+          const result = await this.handleNewRequest(currentRequest);
+          const mailOptions = {
+            from: "ppsukunan@outlook.com",
+            to: "kiransbaliga@gmail.com",
+            subject: "New Request - Resolve",
+            text: `Your Request has been resolved with id:${currentRequest.id}`,
+          };
+          transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+              return console.log(error);
+            }
+
+            console.log("Message sent: " + info.response);
+          });
+          return result;
         } catch (e) {
           throw e;
         }
       } else {
         try {
-          return await this.handleExchange(currentRequest);
+          const result = await this.handleExchange(currentRequest);
+          const mailOptions = {
+            from: "ppsukunan@outlook.com",
+            to: "kiransbaliga@gmail.com",
+            subject: "Exchange Request - Resolve",
+            text: `Your Exchange Request has been resolved with id:${currentRequest.id}`,
+          };
+          transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+              return console.log(error);
+            }
+
+            console.log("Message sent: " + info.response);
+          });
+          return result;
         } catch (e) {
           throw e;
         }
