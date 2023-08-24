@@ -10,11 +10,13 @@ import jsonwebtoken from "jsonwebtoken";
 import CategoryRepository from "../repository/category.repository";
 import { In } from "typeorm";
 import { AssetStatus } from "../utils/assetStatus.enum";
+import HistoryRepository from "../repository/history.repository";
 class AssetService {
   constructor(
     private assetRepository: AssetRepository,
     private categoryRepository: CategoryRepository,
-    private subCategoryRepository: SubCategoryRepository
+    private subCategoryRepository: SubCategoryRepository,
+    private hisoryRepository: HistoryRepository
   ) {}
 
   async getAllAssets(
@@ -103,11 +105,17 @@ class AssetService {
     asset.serial_no = updateAssetDto.serial_no;
     asset.subcategoryId = updateAssetDto.subcategoryId;
     asset.status = updateAssetDto.status;
-    asset.employee = null;
-    asset.employeeId =
-      updateAssetDto.status != AssetStatus.UNALLOCATED
-        ? updateAssetDto.employeeId
-        : null;
+    if (asset.employeeId && updateAssetDto.status == AssetStatus.UNALLOCATED) {
+      const history = await this.hisoryRepository.findHistoryByAssetId(
+        asset.id
+      );
+      console.log(history.id);
+      history.flag += 1;
+      await this.hisoryRepository.updateHistoryById(history);
+      asset.employeeId = null;
+      asset.employee = null;
+    }
+
     return this.assetRepository.updateAssetById(asset);
   }
 

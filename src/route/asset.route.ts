@@ -7,7 +7,8 @@ import AssetRepository from "../repository/asset.repository";
 import AssetService from "../service/asset.service";
 import SubCategoryRepository from "../repository/subcategory.repository";
 import SubCategory from "../entity/subCategory.entity";
-
+import HistoryRepository from "../repository/history.repository";
+import History from "../entity/history.entity";
 const assetRepository = new AssetRepository(dataSource.getRepository(Asset));
 const categoryRepository = new CategoryRepository(
   dataSource.getRepository(Category)
@@ -15,11 +16,15 @@ const categoryRepository = new CategoryRepository(
 const subCategoryRepository = new SubCategoryRepository(
   dataSource.getRepository(SubCategory)
 );
+const historyRepository = new HistoryRepository(
+  dataSource.getRepository(History)
+);
 
 const assetService = new AssetService(
   assetRepository,
   categoryRepository,
-  subCategoryRepository
+  subCategoryRepository,
+  historyRepository
 );
 
 const assetController = new AssetController(assetService);
