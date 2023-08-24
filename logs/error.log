@@ -1,0 +1,23 @@
+{ message: 'message:jwt expired ', level: 'error' }
+{ message: 'message:jwt expired ', level: 'error' }
+{ message: 'message:jwt expired ', level: 'error' }
+{ message: 'message:jwt expired ', level: 'error' }
+{ message: 'message:jwt expired ', level: 'error' }
+{ message: 'message:jwt expired ', level: 'error' }
+{ message: 'message:jwt must be provided ', level: 'error' }
+{
+  message: 'status :401 message:Incorrect username or Password ',
+  level: 'error'
+}
+{
+  message: 'status :401 message:Incorrect username or Password ',
+  level: 'error'
+}
+{
+  message: 'status :400 message:Foriegn Key Violated ',
+  level: 'error'
+}
+{
+  message: 'status :400 message:Foriegn Key Violated ',
+  level: 'error'
+}

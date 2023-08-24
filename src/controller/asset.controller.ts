@@ -15,6 +15,8 @@ import fs from "fs";
 import multer from "multer";
 import csv from "csv-parser";
 import { parse } from "fast-csv";
+import HttpException from "../exceptions/http.exception";
+import Asset from "../entity/assets.entity";
 
 const upload = multer({ dest: "tmp/csv/" });
 
@@ -179,16 +181,12 @@ class AssetController {
       next(error);
     }
   };
+  readBatchAsset = async (path: any): Promise<CreateAssetDto[]> => {
+    const fileRows = [];
+    let assets;
+    return new Promise(function (resolve, reject) {
 
-  createBatchAsset = async (
-    req: express.Request,
-    res: express.Response,
-    next: NextFunction
-  ) => {
-    try {
-      // get csv file from post
-      const fileRows = [];
-      fs.createReadStream(req.file.path)
+      fs.createReadStream(path)
         .pipe(parse({ delimiter: "," }))
         .on("data", (row) => {
           const assetobject = {};
@@ -200,10 +198,31 @@ class AssetController {
           fileRows.push(createAssetDto);
         })
         .on("end", async () => {
-          fs.unlinkSync(req.file.path); // remove temp file
-          const assets = await this.assetService.createBatchAsset(fileRows);
-          return res.status(201).send(createResponse(assets, "OK", null, 1));
+          fs.unlinkSync(path); // remove temp file
+          // assets=await this.assetService.createBatchAsset(fileRows);
+          resolve(fileRows)
+
+
+
         });
+    })
+
+
+  }
+  createBatchAsset = async (
+    req: express.Request,
+    res: express.Response,
+    next: NextFunction
+  ) => {
+    try {
+      // get csv file from post
+      const fileRows = await this.readBatchAsset(req.file.path);
+      const assets=await this.assetService.createBatchAsset(fileRows);
+
+      return res.status(201).send(createResponse(assets, "OK", null, 1));
+
+
+
     } catch (error) {
       next(error);
     }

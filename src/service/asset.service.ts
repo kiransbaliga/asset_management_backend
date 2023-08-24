@@ -84,16 +84,26 @@ class AssetService {
     return createdAsset;
   }
   async createBatchAsset(assetDto: CreateAssetDto[]): Promise<Asset[]> {
-    const assetArray = [];
-    assetDto.forEach((item) => {
-      const asset = new Asset();
-      asset.name = item.name;
-      asset.serial_no = item.serial_no;
-      asset.subcategoryId = item.subcategoryId;
-      console.log(asset);
-      assetArray.push(asset);
-    });
-    return this.assetRepository.createBatchAsset(assetArray);
+    
+    try{
+      const assetArray = [];
+      await Promise.all(
+        assetDto.map((item) => {
+          const asset = new Asset();
+          asset.name = item.name;
+          asset.serial_no = item.serial_no;
+          asset.subcategoryId = item.subcategoryId;
+          console.log(asset);
+          assetArray.push(asset);
+        }))
+        return await this.assetRepository.createBatchAsset(assetArray);
+    }catch(e)
+    {
+      throw new HttpException(400,'Foriegn Key Violated')
+    }
+    
+    
+   
   }
 
   async updateAssetFieldById(
