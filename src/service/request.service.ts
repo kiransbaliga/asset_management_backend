@@ -106,6 +106,7 @@ class RequestService {
         request.status = RequestStatus.RESOLVED;
         const requestItems = request.requestItem;
         requestItems.forEach(async (item) => {
+          if (item.isDone) return;
           const currentSubcategory =
             await this.subcategoryRepository.findSubcategoryById(
               item.subcategoryId
@@ -158,6 +159,12 @@ class RequestService {
               );
             });
           }
+          const currentRequestItem =
+            await this.requestRepository.findRequestItemById(item.id);
+          currentRequestItem.isDone = true;
+          await this.requestRepository.updateRequestItemById(
+            currentRequestItem
+          );
         });
       } else {
         request.status = RequestStatus.RESOLVED;
@@ -194,6 +201,11 @@ class RequestService {
     } catch (e) {
       throw new HttpException(404, "Not enough assets to be assigned");
     }
+  }
+
+  getRequestsByEmployeeId(employeeId: number): Promise<Request[]> {
+    return this.requestRepository.findRequestsByEmployeeId(employeeId);
+    
   }
 }
 
