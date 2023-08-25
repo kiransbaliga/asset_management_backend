@@ -23,16 +23,14 @@ server.use("/employees", employeeRoute);
 server.use("/roles", rolesRoute);
 server.use("/department", departmentRoute);
 server.use("/requests", requestRoute);
-server.use('/category',categoryRoute);
-server.use('/subcategory',subcategoryRoute);
-server.use('/assets',assetRoute);
-server.use('/history',historyRoute);
-server.get('/',(req,res) => {
-    console.log(req.url);
-    res.status(200).send("Hello world typescript");
-
+server.use("/category", categoryRoute);
+server.use("/subcategory", subcategoryRoute);
+server.use("/assets", assetRoute);
+server.use("/history", historyRoute);
+server.get("/", (req, res) => {
+  console.log(req.url);
+  res.status(200).send("Hello world typescript");
 });
-
 server.use(errorMiddleware);
 
 (async () => {

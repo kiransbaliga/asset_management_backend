@@ -33,6 +33,7 @@ class AssetController {
       authenticate,
       this.getAssetBySubCategoryId
     );
+    this.router.get("/template", this.downloadTemplate);
     this.router.get("/:id", authenticate, this.getAssetById);
     this.router.post("/upload", upload.single("file"), this.createBatchAsset);
     this.router.post("/", this.createAsset);
@@ -49,7 +50,18 @@ class AssetController {
       this.updateAssetField
     );
   }
-
+  downloadTemplate = async (
+    req: express.Request,
+    res: express.Response,
+    next: NextFunction
+  ) => {
+    const filePath = "uploads/template.csv";
+    try {
+      res.download(filePath, "template.csv");
+    } catch (e) {
+      next(e);
+    }
+  };
   getAllAssets = async (
     req: express.Request,
     res: express.Response,
@@ -185,7 +197,6 @@ class AssetController {
     const fileRows = [];
     let assets;
     return new Promise(function (resolve, reject) {
-
       fs.createReadStream(path)
         .pipe(parse({ delimiter: "," }))
         .on("data", (row) => {
@@ -200,15 +211,10 @@ class AssetController {
         .on("end", async () => {
           fs.unlinkSync(path); // remove temp file
           // assets=await this.assetService.createBatchAsset(fileRows);
-          resolve(fileRows)
-
-
-
+          resolve(fileRows);
         });
-    })
-
-
-  }
+    });
+  };
   createBatchAsset = async (
     req: express.Request,
     res: express.Response,
@@ -217,12 +223,9 @@ class AssetController {
     try {
       // get csv file from post
       const fileRows = await this.readBatchAsset(req.file.path);
-      const assets=await this.assetService.createBatchAsset(fileRows);
+      const assets = await this.assetService.createBatchAsset(fileRows);
 
       return res.status(201).send(createResponse(assets, "OK", null, 1));
-
-
-
     } catch (error) {
       next(error);
     }
