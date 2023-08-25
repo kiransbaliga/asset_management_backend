@@ -181,7 +181,10 @@ class RequestService {
           item.subcategoryId,
           item.count
         );
-      if (assets.length <= 0)
+
+      console.log(assets.length);
+
+      if (assets.length < item.count)
         throw new HttpException(
           404,
           `Not enough assets to be assigned with of subcategory id:${item.subcategoryId}`
