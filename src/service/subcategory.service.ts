@@ -64,9 +64,9 @@ class SubCategoryService {
         const subcategory = await this.subcategoryRepository.findSubcategoryById(id);
         subcategory.name = updateSubCategoryDto.name;
         subcategory.categoryId=updateSubCategoryDto.categoryId;
-        if(subcategory.perishable&&count!=-1)
+         if(subcategory.perishable)
         {
-            subcategory.count=subcategory.count-count;
+            subcategory.count=updateSubCategoryDto.count;
         }
         return this.subcategoryRepository.updateSubcategoryById(subcategory);
     }
